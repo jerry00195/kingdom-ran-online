@@ -1,13 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kingdom Ran Online</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -25,14 +21,25 @@
       opacity: 0.08;
       z-index: -1;
     }
-    * {
-      cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1341.cur'), auto;
+    * { cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1341.cur'), auto; }
+    .btn {
+      background: #ffaa33;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffaa33;
+      font-size: 16px;
     }
-    audio { display: none; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center; margin-top:40px;">Kingdom Ran Online 完整商城版本載入完成 ✅</h1>
-  <p style="text-align:center;">接下來你可以點右上角「⋯ → Export → HTML」下載這個網站版本，或我幫你直接上傳 GitHub。</p>
+  <h1 style="text-align:center; margin-top:40px;">Kingdom Ran Online</h1>
+  <div style="text-align:center; margin-top:30px;">
+    <button class="btn" onclick="alert('🛒 商城功能尚未串接')">進入商城</button>
+    <button class="btn" onclick="alert('🎒 背包尚未串接')" style="margin-left:20px;">查看背包</button>
+  </div>
+  <p style="text-align:center; margin-top:50px; color:gray; font-size:14px;">（此為商城首頁示意，完整版功能可由我協助載入）</p>
 </body>
 </html>
