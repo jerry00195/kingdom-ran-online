@@ -125,7 +125,33 @@
       clear: both;
       display: block;
     }
-  </style>
+  
+    .top-button-wrapper {
+      width: 1000px;
+      margin: 20px auto;
+      text-align: center;
+    }
+    .top-button {
+      display: inline-block;
+      width: 225px;
+      height: 40px;
+      line-height: 40px;
+      background: url('subbtn_bg.gif') no-repeat center;
+      background-size: contain;
+      text-align: center;
+      color: #ffcc00;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .top-button:hover {
+      background: url('btn_rollover.gif') no-repeat center;
+      background-size: contain;
+      color: #ffffff;
+    }
+
+</style>
 </head>
 <body>
   <div class="header">
@@ -133,11 +159,13 @@
     <div class="slogan">挑戰你的極限，重返榮耀之路</div>
   </div>
 
-  <div style="width: 1000px; margin: 0 auto; text-align: center; margin-top: 20px;">
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt1.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #00ffff, 0 0 20px #00ccff;box-shadow:inset 0 0 10px rgba(0,255,255,0.8), 0 0 12px #00ccff;border: 1px solid #00ffff;border-radius:10px;background-blend-mode:overlay;">客戶端下載</a>
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt2.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #ff66cc, 0 0 20px #ff3399;box-shadow:inset 0 0 10px rgba(255,102,204,0.6), 0 0 12px #ff3399;border: 1px solid #ff66cc;border-radius:10px;background-blend-mode:overlay;">註冊帳號</a>
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt3.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #ffff66, 0 0 20px #ffcc00;box-shadow:inset 0 0 10px rgba(255,255,102,0.5), 0 0 12px #ffcc00;border: 1px solid #ffff66;border-radius:10px;background-blend-mode:overlay;">道具商城</a>
-  </div>
+  
+<div class="top-button-wrapper">
+  <a href="#" class="top-button">客戶端下載</a>
+  <a href="#" class="top-button">註冊帳號</a>
+  <a href="#" class="top-button">道具商城</a>
+</div>
+    
 
   <div style="margin-top: 10px;"></div>
   <div class="marquee" style="margin-bottom: 20px;">
