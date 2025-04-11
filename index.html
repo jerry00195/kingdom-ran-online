@@ -32,7 +32,13 @@
     }
     .header img {
       height: 90px;
-      filter: drop-shadow(0 0 15px #ffaa33);
+      filter: drop-shadow(0 0 25px #ffaa33);
+      animation: rotateGlow 12s linear infinite;
+    }
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg); filter: drop-shadow(0 0 10px #ffaa33); }
+      50% { transform: rotate(180deg); filter: drop-shadow(0 0 30px #ffdd77); }
+      100% { transform: rotate(360deg); filter: drop-shadow(0 0 10px #ffaa33); }
     }
     section {
       background-color: rgba(0, 0, 0, 0.7);
