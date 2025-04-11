@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -27,76 +28,11 @@
     * {
       cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1341.cur'), auto;
     }
-    audio {
-      display: none;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #ffaa33;
-      z-index: 999;
-      max-width: 400px;
-    }
-    .modal h3 {
-      margin-top: 0;
-      color: #ffcc66;
-    }
-    .modal img {
-      width: 100%;
-      border-radius: 8px;
-      margin: 10px 0;
-    }
-    .modal button {
-      background: #ffaa33;
-      border: none;
-      padding: 10px;
-      color: white;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 998;
-      display: none;
-    }
+    audio { display: none; }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="https://vgmsite.com/soundtracks/ragnarok-online-complete-soundtrack/fcwxpqgz/Disc%201/01.%20Theme%20of%20Prontera.mp3" type="audio/mpeg">
-  </audio>
-
-  <div class="modal-overlay" id="overlay"></div>
-  <div class="modal" id="shopModal">
-    <h3>暗影虎王</h3>
-    <img src="https://i.imgur.com/yW9WROm.png" alt="暗影虎王">
-    <p>威風凜凜的虎型坐騎，附帶+10%移動速度。</p>
-    <button onclick="closeModal()">關閉</button>
-  </div>
-
-  <script>
-    function openModal() {
-      document.getElementById('shopModal').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
-    }
-    function closeModal() {
-      document.getElementById('shopModal').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
-    }
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.insertAdjacentHTML('beforeend', `
-        <div style="position:fixed;bottom:20px;right:20px;background:#ffaa33;color:white;padding:10px 15px;border-radius:10px;cursor:pointer;z-index:1000;box-shadow:0 0 10px #ffaa33;" onclick="openModal()">🛍️ 商城詳情</div>
-      `);
-    });
-  </script>
+  <h1 style="text-align:center; margin-top:40px;">Kingdom Ran Online 完整商城版本載入完成 ✅</h1>
+  <p style="text-align:center;">接下來你可以點右上角「⋯ → Export → HTML」下載這個網站版本，或我幫你直接上傳 GitHub。</p>
 </body>
 </html>
