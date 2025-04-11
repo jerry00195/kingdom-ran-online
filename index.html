@@ -146,7 +146,52 @@
 
   <div class="container">
     <div class="center">
-      
+      <div class="panel">
+        <div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
+          <div id="carousel-inner" style="white-space: nowrap; transition: transform 0.5s ease;">
+            <img src="IMG_0828.JPG" alt="活動圖示1" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
+            <img src="IMG_0826.JPG" alt="活動圖示2" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
+            <img src="IMG_0827.JPG" alt="活動圖示3" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
+          </div>
+          <button onclick="slideNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一張</button>
+        </div>
+        <script>
+          let slideIndex = 0;
+          const inner = document.getElementById('carousel-inner');
+          const total = inner.children.length;
+          function slideNext() {
+            slideIndex = (slideIndex + 1) % total;
+            inner.style.transform = `translateX(-${slideIndex * 100}%)`;
+          }
+          setInterval(slideNext, 5000);
+        </script>
+      </div>
+      <div class="panel">
+        <div class="title">最新公告</div>
+        <table class="ann-table">
+          <tr><td class="ann-title">[公告] 伺服器維護通知</td><td class="ann-date">2025/04/10</td></tr>
+          <tr><td class="ann-title">[活動] 春季轉蛋機登場！</td><td class="ann-date">2025/04/08</td></tr>
+          <tr><td class="ann-title">[公告] 新地圖開放「幻影森林」</td><td class="ann-date">2025/04/06</td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <div class="title">伺服器資訊</div>
+        <p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
+        <p>版本：EP7 中文版</p>
+        <p>線上人數：9999</p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="title">會員登入</div>
+        <form onsubmit="return false;">
+          <input type="text" placeholder="帳號" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
+          <input type="password" placeholder="密碼" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
+          <button style="width:100%;padding:8px;background:#ffaa33;color:#000;border:none;border-radius:4px;font-weight:bold;font-size:14px;">登入</button>
+        </form>
+      </div>
+      <div class="panel">
+        <div class="title">立即贊助</div>
         <p style="text-align:center;margin:10px 0;">
           <a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank" style="display:inline-block;width:226px;height:70px;background:url('recharge_off.gif') no-repeat center top;background-size:contain;" onmouseover="this.style.backgroundImage='url(recharge_on.gif)'" onmouseout="this.style.backgroundImage='url(recharge_off.gif)'"></a>
         </p>
