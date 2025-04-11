@@ -1,212 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1000">
   <title>Kingdom Ran Online</title>
-  <link rel="icon" href="LOGO.png">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('normal.cur'), auto; }
     body {
-      background: #000 url('222.png') no-repeat center top;
-      background-size: cover;
-      font-family: Arial, sans-serif;
+      background-color: #000;
       color: white;
-      position: relative;
-    }
-    .header {
+      font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 30px;
+      padding-top: 50px;
     }
-    .logo-effect {
-      width: 420px;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-      0% { filter: drop-shadow(0 0 6px #00ffff); }
-      50% { filter: drop-shadow(0 0 18px #00ffcc); }
-      100% { filter: drop-shadow(0 0 6px #00ffff); }
-    }
-    .slogan {
-      font-size: 22px;
-      color: #ffcc00;
-      font-weight: bold;
-      text-shadow: 0 0 4px #ff0000, 0 0 10px #ffaa33;
-      margin-top: 10px;
-    }
-    .marquee {
-      background: url('https://rossoran.com/images/scroll_bg.png') repeat-x;
-      padding: 6px 12px;
-      border: 1px solid #ff4444;
-      color: #fff200;
-      font-weight: bold;
-      font-size: 14px;
-      width: 1000px;
-      margin: 10px auto 0 auto;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .marquee span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 15s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-100%, 0); }
-    }
-    .container {
-      display: flex;
-      width: 1000px;
-      margin: auto;
-      gap: 20px;
-    }
-    .left, .right { width: 200px; }
-    .center { width: 600px; margin: 0 0; }
-    .nav-button {
+    .recharge-btn {
       display: block;
-      height: 40px;
-      line-height: 40px;
-      background: url('https://rossoran.com/images/menu_bt.jpg') no-repeat center top;
+      width: 226px;
+      height: 70px;
+      margin: 20px auto;
+      background-image: url('recharge_off.gif');
       background-size: contain;
-      color: #ffcc00;
-      text-align: center;
-      font-weight: bold;
-      text-decoration: none;
-      margin-bottom: 6px;
-      font-size: 14px;
+      background-repeat: no-repeat;
+      border: none;
+      outline: none;
     }
-    .nav-button:hover { background-position: center bottom; }
-    .panel {
-      background: #1a1a1a;
-      border: 2px solid #ffcc00;
-      box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 15px;
-    }
-    .title {
-      color: #ffcc00;
-      font-size: 15px;
-      border-bottom: 1px solid #ffcc00;
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-    }
-    .ann-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-    .ann-table td {
-      padding: 8px 6px;
-      border-bottom: 1px solid #444;
-    }
-    .ann-table tr:nth-child(odd) {
-      background: #2a2a2a;
-    }
-    .ann-table tr:nth-child(even) {
-      background: #1a1a1a;
-    }
-    .ann-title {
-      text-align: left;
-      color: #ffaa33;
-    }
-    .ann-date {
-      text-align: right;
-      color: #ccc;
-    }
-    footer {
-      text-align: center;
-      color: #999;
-      font-size: 12px;
-      margin: 20px 0;
-      width: 1000px;
-      margin: 20px auto 0 auto;
-      clear: both;
-      display: block;
+    .recharge-btn:hover {
+      background-image: url('recharge_on.gif');
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="LOGO.png" alt="Kingdom Ran Logo" class="logo-effect">
-    <div class="slogan">挑戰你的極限，重返榮耀之路</div>
+  <h1>Kingdom Ran Online</h1>
+  <div class="panel">
+    <div class="title">立即贊助</div>
+    <a href="#" class="recharge-btn"></a>
   </div>
-
-  <div style="width: 1000px; margin: 0 auto; text-align: center; margin-top: 20px;">
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt1.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #00ffff, 0 0 20px #00ccff;box-shadow:inset 0 0 10px rgba(0,255,255,0.8), 0 0 12px #00ccff;border: 1px solid #00ffff;border-radius:10px;background-blend-mode:overlay;">客戶端下載</a>
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt2.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #ff66cc, 0 0 20px #ff3399;box-shadow:inset 0 0 10px rgba(255,102,204,0.6), 0 0 12px #ff3399;border: 1px solid #ff66cc;border-radius:10px;background-blend-mode:overlay;">註冊帳號</a>
-    <a href="#" style="display:inline-block;margin:0 10px;width:180px;height:66px;background:url('https://rossoran.com/images/login_bt3.png') no-repeat center top;background-size:contain;text-decoration:none;color:#fff;font-weight:bold;font-size:20px;line-height:66px;text-shadow:0 0 10px #ffff66, 0 0 20px #ffcc00;box-shadow:inset 0 0 10px rgba(255,255,102,0.5), 0 0 12px #ffcc00;border: 1px solid #ffff66;border-radius:10px;background-blend-mode:overlay;">道具商城</a>
-  </div>
-
-  <div style="margin-top: 10px;"></div>
-  <div class="marquee" style="margin-bottom: 20px;">
-    <span>最新最好玩的全新伺服器，Kingdom Ran Online 即將與您見面！</span>
-  </div>
-
-  <div class="container">
-    <div class="center">
-      <div class="panel">
-        <div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
-          <div id="carousel-inner" style="white-space: nowrap; transition: transform 0.5s ease;">
-            <img src="IMG_0828.JPG" alt="活動圖示1" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-            <img src="IMG_0826.JPG" alt="活動圖示2" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-            <img src="IMG_0827.JPG" alt="活動圖示3" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-          </div>
-          <button onclick="slideNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一張</button>
-        </div>
-        <script>
-          let slideIndex = 0;
-          const inner = document.getElementById('carousel-inner');
-          const total = inner.children.length;
-          function slideNext() {
-            slideIndex = (slideIndex + 1) % total;
-            inner.style.transform = `translateX(-${slideIndex * 100}%)`;
-          }
-          setInterval(slideNext, 5000);
-        </script>
-      </div>
-      <div class="panel">
-        <div class="title">最新公告</div>
-        <table class="ann-table">
-          <tr><td class="ann-title">[公告] 伺服器維護通知</td><td class="ann-date">2025/04/10</td></tr>
-          <tr><td class="ann-title">[活動] 春季轉蛋機登場！</td><td class="ann-date">2025/04/08</td></tr>
-          <tr><td class="ann-title">[公告] 新地圖開放「幻影森林」</td><td class="ann-date">2025/04/06</td></tr>
-        </table>
-      </div>
-      <div class="panel">
-        <div class="title">伺服器資訊</div>
-        <p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
-        <p>版本：EP7 中文版</p>
-        <p>線上人數：9999</p>
-      </div>
-    </div>
-    <div class="right">
-      <div class="panel">
-        <div class="title">會員登入</div>
-        <form onsubmit="return false;">
-          <input type="text" placeholder="帳號" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
-          <input type="password" placeholder="密碼" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
-          <button style="width:100%;padding:8px;background:#ffaa33;color:#000;border:none;border-radius:4px;font-weight:bold;font-size:14px;">登入</button>
-        </form>
-      </div>
-      <div class="panel">
-        <div class="title">立即贊助</div>
-        <p style="text-align:center;margin:10px 0;">
-          <a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank" style="display:inline-block;padding:10px 20px;background:#ff4444;color:white;font-weight:bold;border-radius:6px;text-decoration:none;box-shadow:0 0 8px #ff0000;transition:transform 0.2s ease-in-out;">立即贊助</a>
-        </p>
-      </div>
-      <div class="panel">
-        <div class="title">社群連結</div>
-        <a href="https://www.facebook.com/kingdomran2025/" target="_blank" class="nav-button">粉絲專頁</a>
-        <a href="https://www.facebook.com/groups/kingdomran2025" target="_blank" class="nav-button">社團交流區</a>
-        <a href="https://m.me/586648687873912" target="_blank" class="nav-button">聯繫客服</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 Kingdom Ran Online. All Rights Reserved.
-  </footer>
 </body>
 </html>
