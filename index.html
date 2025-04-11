@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kingdom Ran Online</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #1a124a;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .header {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 20px 0;
+    }
+    .header img {
+      height: 80px;
+    }
+    .ranking-section { padding: 60px 20px; background-color: rgba(255, 255, 255, 0.03); }
+    .ranking-section h2 { text-align: center; font-size: 32px; color: #e0d9ff; margin-bottom: 30px; }
+    .ranking-table { max-width: 800px; margin: 0 auto; border-collapse: collapse; width: 100%; }
+    .ranking-table th, .ranking-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .ranking-table th { background-color: rgba(255, 255, 255, 0.08); color: #bfaaff; }
+    .ranking-table td { color: #e0d9ff; }
+    .redeem-section { padding: 60px 20px; background-color: rgba(255, 255, 255, 0.04); text-align: center; }
+    .redeem-section h2 { font-size: 32px; color: #e0d9ff; margin-bottom: 20px; }
+    .redeem-section p { color: #c0b3ff; margin-bottom: 20px; }
+    .redeem-form input[type="text"] { padding: 10px; width: 300px; max-width: 90%; border: none; border-radius: 6px; margin-bottom: 15px; }
+    .redeem-form button { padding: 10px 20px; background-color: #6f52d5; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .redeem-form button:hover { background-color: #866ce0; }
+    .contact-section { padding: 60px 20px; background-color: rgba(0, 0, 0, 0.2); text-align: center; }
+    .contact-section h2 { font-size: 32px; color: #e0d9ff; margin-bottom: 20px; }
+    .contact-section p { color: #c0b3ff; margin-bottom: 20px; }
+    .contact-form { max-width: 500px; margin: 0 auto; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 6px; }
+    .contact-form button { padding: 10px 20px; background-color: #6f52d5; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .contact-form button:hover { background-color: #866ce0; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="logo.png" alt="Kingdom Ran Logo" />
+  </div>
+
+  <section class="donate-section">
+    <h2>累積贊助計畫</h2>
+    <p>感謝您的支持！本月贊助進度如下：</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <small>目標金額：NT$10,000｜目前累積：NT$4,500</small>
+  </section>
+
+  <section class="ranking-section">
+    <h2>本週角色排行榜</h2>
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>排名</th>
+          <th>角色名稱</th>
+          <th>職業</th>
+          <th>等級</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>雷光戰魂</td>
+          <td>劍士</td>
+          <td>150</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>幻影魔導</td>
+          <td>法師</td>
+          <td>147</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>月影刺客</td>
+          <td>刺客</td>
+          <td>143</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="redeem-section">
+    <h2>序號兌換</h2>
+    <p>請輸入您的兌換序號，即可領取專屬獎勵。</p>
+    <form class="redeem-form">
+      <input type="text" placeholder="請輸入序號" required />
+      <br />
+      <button type="submit">兌換</button>
+    </form>
+  </section>
+
+  <section class="contact-section">
+    <h2>聯繫客服</h2>
+    <p>如您在遊戲中遇到問題，歡迎透過下方表單與我們聯繫。</p>
+    <form class="contact-form">
+      <input type="text" placeholder="您的遊戲帳號" required />
+      <input type="email" placeholder="您的電子信箱" required />
+      <textarea rows="5" placeholder="請輸入您的問題內容..." required></textarea>
+      <button type="submit">送出</button>
+    </form>
+  </section>
+</body>
+</html>
