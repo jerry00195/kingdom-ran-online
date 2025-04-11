@@ -4,201 +4,99 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kingdom Ran Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://i.imgur.com/fWyOYNu.jpeg') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      background-attachment: fixed;
+      overflow-x: hidden;
       color: white;
     }
-    .wrapper {
-      display: flex;
-      flex-direction: row;
-      max-width: 1200px;
-      margin: 0 auto;
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://i.imgur.com/ZVZ0xnt.gif') center center / cover no-repeat;
+      opacity: 0.08;
+      z-index: -1;
+    }
+    * {
+      cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1341.cur'), auto;
+    }
+    audio {
+      display: none;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #222;
       padding: 20px;
-      gap: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #ffaa33;
+      z-index: 999;
+      max-width: 400px;
     }
-    .sidebar {
-      flex: 1;
-    }
-    .main {
-      flex: 3;
-    }
-    .header {
-      text-align: center;
-      padding: 30px 0 10px;
-    }
-    .header img {
-      height: 90px;
-      filter: drop-shadow(0 0 25px #ffaa33);
-      animation: rotateGlow 12s linear infinite;
-    }
-    @keyframes rotateGlow {
-      0% { transform: rotate(0deg); filter: drop-shadow(0 0 10px #ffaa33); }
-      50% { transform: rotate(180deg); filter: drop-shadow(0 0 30px #ffdd77); }
-      100% { transform: rotate(360deg); filter: drop-shadow(0 0 10px #ffaa33); }
-    }
-    section {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 15px rgba(255, 170, 51, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    section:hover {
-      transform: scale(1.01);
-      box-shadow: 0 0 25px rgba(255, 170, 51, 0.5);
-    }
-    h2 {
+    .modal h3 {
+      margin-top: 0;
       color: #ffcc66;
-      margin-bottom: 10px;
-      font-size: 22px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      padding-bottom: 5px;
     }
-    input, textarea, button {
+    .modal img {
       width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    button {
-      background: linear-gradient(90deg, #ff8800, #ffaa33);
-      color: white;
-      cursor: pointer;
-    }
-    .announcement-list p, .server-status p, .progress {
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .progress {
-      background: #333;
-      height: 18px;
       border-radius: 8px;
-      overflow: hidden;
-      margin-top: 10px;
+      margin: 10px 0;
     }
-    .progress > div {
-      height: 100%;
-      width: 45%;
-      background: linear-gradient(90deg, #ffaa33, #ff5500);
-    }
-    .ranking-table {
+    .modal button {
+      background: #ffaa33;
+      border: none;
+      padding: 10px;
+      color: white;
       width: 100%;
-      border-collapse: collapse;
+      cursor: pointer;
+      border-radius: 5px;
     }
-    .ranking-table th, .ranking-table td {
-      padding: 8px;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      text-align: center;
-    }
-    .ranking-table th {
-      color: #ffcc66;
-    }
-    .carousel {
-      height: 180px;
-      overflow: hidden;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .carousel img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      animation: fade 18s infinite;
-    }
-    @keyframes fade {
-      0%, 33% {opacity: 1;}
-      34%, 100% {opacity: 0;}
-    }
-    .carousel img:nth-child(2) {
-      animation-delay: 6s;
-    }
-    .carousel img:nth-child(3) {
-      animation-delay: 12s;
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 998;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="logo.png" alt="Kingdom Ran Logo">
+  <audio autoplay loop>
+    <source src="https://vgmsite.com/soundtracks/ragnarok-online-complete-soundtrack/fcwxpqgz/Disc%201/01.%20Theme%20of%20Prontera.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="modal-overlay" id="overlay"></div>
+  <div class="modal" id="shopModal">
+    <h3>暗影虎王</h3>
+    <img src="https://i.imgur.com/yW9WROm.png" alt="暗影虎王">
+    <p>威風凜凜的虎型坐騎，附帶+10%移動速度。</p>
+    <button onclick="closeModal()">關閉</button>
   </div>
 
-  <div class="wrapper">
-    <div class="sidebar">
-      <section>
-        <h2>會員登入</h2>
-        <form>
-          <input type="text" placeholder="帳號" required>
-          <input type="password" placeholder="密碼" required>
-          <button type="submit">登入</button>
-        </form>
-      </section>
-      <section class="server-status">
-        <h2>伺服器狀態</h2>
-        <p>主線伺服器：<span style="color:#00ff88">✔ 線上</span></p>
-        <p>測試伺服器：<span style="color:#ff5555">✘ 離線</span></p>
-      </section>
-    </div>
-
-    <div class="main">
-      <div class="carousel">
-        <img src="https://i.imgur.com/OT0XsfN.jpeg" alt="活動圖1">
-        <img src="https://i.imgur.com/Elv5uAx.jpeg" alt="活動圖2">
-        <img src="https://i.imgur.com/YDs1oUK.jpeg" alt="活動圖3">
-      </div>
-
-      <section class="announcement-list">
-        <h2>最新公告</h2>
-        <p>📅 <strong>04/11</strong>｜開服公告 - Kingdom Ran 盛大啟動</p>
-        <p>🔥 <strong>04/15</strong>｜加開新伺服器《幽影校區》</p>
-        <p>🛒 <strong>04/18</strong>｜商城更新：期間限定魔法套裝上架中！</p>
-      </section>
-
-      <section>
-        <h2>累積贊助計畫</h2>
-        <p>目標金額：NT$10,000｜目前累積：NT$4,500</p>
-        <div class="progress"><div></div></div>
-      </section>
-
-      <section>
-        <h2>角色排行榜</h2>
-        <table class="ranking-table">
-          <thead>
-            <tr><th>排名</th><th>角色名稱</th><th>職業</th><th>等級</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>雷光戰魂</td><td>劍士</td><td>150</td></tr>
-            <tr><td>2</td><td>幻影魔導</td><td>法師</td><td>147</td></tr>
-            <tr><td>3</td><td>月影刺客</td><td>刺客</td><td>143</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section>
-        <h2>序號兌換</h2>
-        <form>
-          <input type="text" placeholder="請輸入您的序號" required>
-          <button type="submit">兌換</button>
-        </form>
-      </section>
-
-      <section>
-        <h2>聯繫客服</h2>
-        <form>
-          <input type="text" placeholder="遊戲帳號" required>
-          <input type="email" placeholder="電子郵件" required>
-          <textarea rows="4" placeholder="請輸入您的問題..."></textarea>
-          <button type="submit">送出</button>
-        </form>
-      </section>
-    </div>
-  </div>
+  <script>
+    function openModal() {
+      document.getElementById('shopModal').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+    function closeModal() {
+      document.getElementById('shopModal').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.insertAdjacentHTML('beforeend', `
+        <div style="position:fixed;bottom:20px;right:20px;background:#ffaa33;color:white;padding:10px 15px;border-radius:10px;cursor:pointer;z-index:1000;box-shadow:0 0 10px #ffaa33;" onclick="openModal()">🛍️ 商城詳情</div>
+      `);
+    });
+  </script>
 </body>
 </html>
