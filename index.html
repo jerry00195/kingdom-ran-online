@@ -1,117 +1,118 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1000">
   <title>Kingdom Ran Online</title>
   <link rel="icon" href="LOGO.png">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('normal.cur'), auto; }
     body {
+      background: #000 url('https://rossoran.com/images/bg.jpg');
       font-family: Arial, sans-serif;
-      background: #000 url('https://iftran-ol.up9r.com/themes/images/banner/3_1744386165.png') repeat-y center top;
       color: white;
+      position: relative;
+    }
+    .header {
+      text-align: center;
+      padding-top: 30px;
+    }
+    .header img {
+      width: 420px;
+    }
+    .slogan {
+      font-size: 22px;
+      color: #ffcc00;
+      font-weight: bold;
+      text-shadow: 0 0 4px #ff0000, 0 0 10px #ffaa33;
+      margin-top: 10px;
+    }
+    .character-overlay {
+      position: absolute;
+      top: 120px;
+      left: 0;
+      width: 100%;
+      z-index: 0;
+      text-align: center;
+    }
+    .character-overlay img {
+      max-height: 520px;
+      margin: 0 10px;
     }
     .container {
       width: 1000px;
       margin: auto;
       display: flex;
-      padding-top: 40px;
+      padding-top: 20px;
+      position: relative;
+      z-index: 1;
     }
-    .left, .right {
-      width: 200px;
-    }
-    .center {
-      flex: 1;
-      margin: 0 20px;
-    }
-    .logo {
-      display: block;
-      margin: auto;
-      margin-top: 20px;
-      max-width: 600px;
-    }
+    .left, .right { width: 200px; }
+    .center { width: 600px; margin: 0 0; }
     .nav-button {
       display: block;
-      background: #330000;
-      padding: 12px;
-      margin-bottom: 8px;
-      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      background: url('https://rossoran.com/images/menu_bt.jpg') no-repeat center top;
+      background-size: contain;
       color: #ffcc00;
+      text-align: center;
       font-weight: bold;
-      border-radius: 6px;
       text-decoration: none;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
-    .nav-button:hover {
-      background: #990000;
-    }
+    .nav-button:hover { background-position: center bottom; }
     .panel {
-      background: rgba(0,0,0,0.6);
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 10px;
+      background: #1a1a1a;
+      border: 2px solid #ffcc00;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
     }
     .title {
-      font-size: 18px;
-      font-weight: bold;
+      color: #ffcc00;
+      font-size: 15px;
+      border-bottom: 1px solid #ffcc00;
+      padding-bottom: 6px;
       margin-bottom: 10px;
-      border-bottom: 1px solid #ffaa33;
-      padding-bottom: 5px;
+    }
+    .ann-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .ann-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid #444;
+    }
+    .ann-table tr:nth-child(odd) {
+      background: #2a2a2a;
+    }
+    .ann-table tr:nth-child(even) {
+      background: #1a1a1a;
+    }
+    .ann-title {
+      text-align: left;
+      color: #ffaa33;
+    }
+    .ann-date {
+      text-align: right;
+      color: #ccc;
     }
     footer {
       text-align: center;
-      padding: 20px;
-      color: gray;
+      color: #999;
+      font-size: 12px;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <img src="LOGO.png" alt="Kingdom Ran Logo" class="logo">
-  <div class="container">
-    <div class="left">
-      <a href="#" class="nav-button">會員註冊</a>
-      <a href="#" class="nav-button">我要贊助</a>
-      <a href="#" class="nav-button">遊戲下載</a>
-      <a href="#" class="nav-button">帳號管理</a>
-      <a href="#" class="nav-button">回報問題</a>
-      <a href="#" class="nav-button">序號兌換</a>
-      <a href="#" class="nav-button">伺服器狀態</a>
-    </div>
-    <div class="center">
-      <div class="panel">
-        <div class="title">最新公告</div>
-        <ul>
-          <li><a href="#" style="color:#ffaa33; text-decoration:none;">[公告] 伺服器維護通知 2025/4/10</a></li>
-          <li><a href="#" style="color:#ffaa33; text-decoration:none;">[活動] 春季轉蛋機登場！</a></li>
-          <li><a href="#" style="color:#ffaa33; text-decoration:none;">[公告] 新地圖開放「幻影森林」</a></li>
-        </ul>
-      </div>
-      <div class="panel">
-        <div class="title">伺服器資訊</div>
-        <p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
-        <p>版本：EP9 國際版</p>
-        <p>線上人數：9999</p>
-      </div>
-    </div>
-    <div class="right">
-      <div class="panel">
-        <div class="title">會員登入</div>
-        <form onsubmit="return false;">
-          <input type="text" placeholder="帳號" style="width:100%;padding:8px;margin-bottom:10px;">
-          <input type="password" placeholder="密碼" style="width:100%;padding:8px;margin-bottom:10px;">
-          <button style="width:100%;padding:10px;background:#ffaa33;color:#000;border:none;border-radius:6px;font-weight:bold;">登入</button>
-        </form>
-      </div>
-      <div class="panel">
-        <div class="title">社群連結</div>
-        <a href="#" class="nav-button">粉絲專頁</a>
-        <a href="#" class="nav-button">討論區</a>
-      </div>
-    </div>
+  <div class="header">
+    <img src="LOGO.png" alt="Kingdom Ran Logo">
+    <div class="slogan">挑戰你的極限，重返榮耀之路</div>
   </div>
-  <footer>
-    © 2025 Kingdom Ran Online. All Rights Reserved.
-  </footer>
 </body>
 </html>
