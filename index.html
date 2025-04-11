@@ -1,69 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kingdom Ran Online</title>
-    <style>
-        body { background: linear-gradient(135deg, #3b0d8c, #6a00ff); color: #fff; font-family: Arial, sans-serif; text-align: center; }
-        nav { margin-top: 20px; }
-        nav a { margin: 0 15px; color: #fff; text-decoration: none; font-weight: bold; }
-        section { margin-top: 40px; }
-        footer { margin-top: 60px; font-size: 0.9em; }
-        button { background-color: #8a2be2; border: none; padding: 10px 20px; color: white; cursor: pointer; }
-        a { color: #ffd700; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kingdom Ran Online</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      color: white;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://iftran-ol.up9r.com/themes/images/banner/3_1744386165.png') center center / cover no-repeat;
+      opacity: 0.3;
+      z-index: -1;
+    }
+    * { cursor: url('https://cur.cursors-4u.net/games/gam-14/gam1341.cur'), auto; }
+    .main-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .button-group {
+      background-color: rgba(0,0,0,0.6);
+      border-radius: 16px;
+      padding: 16px 24px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    .button-group:hover {
+      transform: scale(1.05);
+    }
+    .button-group h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: white;
+    }
+    .button-group a {
+      display: inline-block;
+      background: #ffaa33;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+    }
+    .button-group a:hover {
+      background: #e6891a;
+    }
+  </style>
 </head>
 <body>
+  <header style="text-align:center; padding: 40px 20px; background: rgba(0,0,0,0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.6);">
+    <img src="LOGO.png" alt="Kingdom Ran Logo" style="max-width: 320px;">
+    <p style="font-size: 24px; color: #ffaa33; margin-top:20px;">挑戰你的極限，重返榮耀之路</p>
+  </header>
 
-<header>
-    <h1>Kingdom Ran Online</h1>
-    <nav>
-        <a href="#home">首頁</a>
-        <a href="#register">會員註冊</a>
-        <a href="#donate">我要贊助</a>
-        <a href="#shop">道具商城</a>
-        <a href="#download">遊戲下載</a>
-        <a href="#contact">聯繫客服</a>
-    </nav>
-</header>
+  <div class="main-buttons">
+    <div class="button-group"><h2>首頁</h2><a href="#">進入首頁</a></div>
+    <div class="button-group"><h2>會員註冊</h2><a href="#">立即註冊</a></div>
+    <div class="button-group"><h2>我要贊助</h2><a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank">立即贊助</a></div>
+    <div class="button-group"><h2>道具商城</h2><a href="#">進入商城</a></div>
+    <div class="button-group"><h2>遊戲下載</h2><a href="#">立即下載</a></div>
+    <div class="button-group"><h2>官方粉絲團</h2><a href="https://www.facebook.com/kingdomran2025/" target="_blank">前往粉專</a></div>
+    <div class="button-group"><h2>聯繫客服</h2><a href="https://m.me/586648687873912" target="_blank">聯絡我們</a></div>
+  </div>
 
-<section id="home">
-    <h2>歡迎來到 Kingdom Ran Online！</h2>
-    <p>體驗校園與魔法融合的全新冒險世界。</p>
-</section>
+  <section style="max-width: 960px; margin: 60px auto; background-color: rgba(0,0,0,0.6); padding: 30px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+    <h2 style="text-align:center; margin-bottom: 20px; border-bottom: 2px solid #ffaa33; padding-bottom: 10px;">最新公告</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+      <thead>
+        <tr style="background-color: #333;">
+          <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ffaa33;">標題</th>
+          <th style="padding: 10px; text-align: right; border-bottom: 1px solid #ffaa33;">日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="#" style="color: #ffaa33; text-decoration: none;">[公告] 維護補償序號</a></td><td style="text-align: right;">2025/4/8</td></tr>
+        <tr><td><a href="#" style="color: #ffaa33; text-decoration: none;">[活動] BTG 加成活動</a></td><td style="text-align: right;">2025/4/1</td></tr>
+        <tr><td><a href="#" style="color: #ffaa33; text-decoration: none;">[公告] 更新維護通知</a></td><td style="text-align: right;">2025/3/30</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-<section id="register">
-    <h2>會員註冊</h2>
-    <button>立即註冊</button>
-</section>
-
-<section id="donate">
-    <h2>我要贊助</h2>
-    <p>支持遊戲發展並獲得特殊獎勵。</p>
-    <a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank"><button>立即贊助</button></a>
-</section>
-
-<section id="shop">
-    <h2>道具商城</h2>
-    <button>進入商城</button>
-</section>
-
-<section id="download">
-    <h2>遊戲下載</h2>
-    <button>立即下載</button>
-</section>
-
-<section id="contact">
-    <h2>聯繫客服</h2>
-    <p>有任何問題請隨時與我們聯絡！</p>
-    <a href="https://m.me/586648687873912" target="_blank"><button>聯絡我們</button></a>
-</section>
-
-<footer>
-    <p><a href="https://www.facebook.com/kingdomran2025/" target="_blank">追蹤我們的官方粉絲團</a> | © 2025 Kingdom Ran Online</p>
-</footer>
-
+  <footer style="text-align:center; margin-top:50px; color:gray; font-size:14px;">
+    <p>© 2025 Kingdom Ran Online</p>
+  </footer>
 </body>
 </html>
