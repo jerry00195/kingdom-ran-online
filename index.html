@@ -7,105 +7,164 @@
   <style>
     body {
       margin: 0;
-      background-color: #1a124a;
       font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.imgur.com/HKPSPqP.jpg') no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+    }
+    .main-container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 12px;
     }
     .header {
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 20px 0;
+      margin-bottom: 30px;
     }
     .header img {
-      height: 80px;
+      height: 100px;
     }
-    .ranking-section { padding: 60px 20px; background-color: rgba(255, 255, 255, 0.03); }
-    .ranking-section h2 { text-align: center; font-size: 32px; color: #e0d9ff; margin-bottom: 30px; }
-    .ranking-table { max-width: 800px; margin: 0 auto; border-collapse: collapse; width: 100%; }
-    .ranking-table th, .ranking-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-    .ranking-table th { background-color: rgba(255, 255, 255, 0.08); color: #bfaaff; }
-    .ranking-table td { color: #e0d9ff; }
-    .redeem-section { padding: 60px 20px; background-color: rgba(255, 255, 255, 0.04); text-align: center; }
-    .redeem-section h2 { font-size: 32px; color: #e0d9ff; margin-bottom: 20px; }
-    .redeem-section p { color: #c0b3ff; margin-bottom: 20px; }
-    .redeem-form input[type="text"] { padding: 10px; width: 300px; max-width: 90%; border: none; border-radius: 6px; margin-bottom: 15px; }
-    .redeem-form button { padding: 10px 20px; background-color: #6f52d5; color: white; border: none; border-radius: 6px; cursor: pointer; }
-    .redeem-form button:hover { background-color: #866ce0; }
-    .contact-section { padding: 60px 20px; background-color: rgba(0, 0, 0, 0.2); text-align: center; }
-    .contact-section h2 { font-size: 32px; color: #e0d9ff; margin-bottom: 20px; }
-    .contact-section p { color: #c0b3ff; margin-bottom: 20px; }
-    .contact-form { max-width: 500px; margin: 0 auto; }
-    .contact-form input, .contact-form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: none; border-radius: 6px; }
-    .contact-form button { padding: 10px 20px; background-color: #6f52d5; color: white; border: none; border-radius: 6px; cursor: pointer; }
-    .contact-form button:hover { background-color: #866ce0; }
+    h2 {
+      text-align: center;
+      color: #ffe680;
+      margin-bottom: 20px;
+    }
+    section {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 40px;
+    }
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ranking-table th, .ranking-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    .ranking-table th {
+      color: #ffcc66;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      background: #ff9933;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ffaa33;
+    }
+    .login-section, .announcement-section, .server-status {
+      margin-bottom: 40px;
+    }
+    .announcement-ticker {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      font-size: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: scroll 15s linear infinite;
+    }
+    @keyframes scroll {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+    .status-box {
+      background: #222;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .status-online { color: #00ff88; }
+    .status-offline { color: #ff5555; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <img src="logo.png" alt="Kingdom Ran Logo" />
-  </div>
-
-  <section class="donate-section">
-    <h2>累積贊助計畫</h2>
-    <p>感謝您的支持！本月贊助進度如下：</p>
-    <div class="progress-bar">
-      <div class="progress-bar-fill"></div>
+  <div class="main-container">
+    <div class="header">
+      <img src="logo.png" alt="Kingdom Ran Logo">
     </div>
-    <small>目標金額：NT$10,000｜目前累積：NT$4,500</small>
-  </section>
 
-  <section class="ranking-section">
-    <h2>本週角色排行榜</h2>
-    <table class="ranking-table">
-      <thead>
-        <tr>
-          <th>排名</th>
-          <th>角色名稱</th>
-          <th>職業</th>
-          <th>等級</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>雷光戰魂</td>
-          <td>劍士</td>
-          <td>150</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>幻影魔導</td>
-          <td>法師</td>
-          <td>147</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>月影刺客</td>
-          <td>刺客</td>
-          <td>143</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <section class="login-section">
+      <h2>會員登入</h2>
+      <form>
+        <input type="text" placeholder="帳號" required>
+        <input type="password" placeholder="密碼" required>
+        <button type="submit">登入</button>
+      </form>
+    </section>
 
-  <section class="redeem-section">
-    <h2>序號兌換</h2>
-    <p>請輸入您的兌換序號，即可領取專屬獎勵。</p>
-    <form class="redeem-form">
-      <input type="text" placeholder="請輸入序號" required />
-      <br />
-      <button type="submit">兌換</button>
-    </form>
-  </section>
+    <section class="announcement-section">
+      <h2>最新公告</h2>
+      <div class="announcement-ticker">
+        📣 開服活動開跑！｜📅 4/15 加開新伺服器｜💎 商城更新啦！限時禮包上架中！
+      </div>
+    </section>
 
-  <section class="contact-section">
-    <h2>聯繫客服</h2>
-    <p>如您在遊戲中遇到問題，歡迎透過下方表單與我們聯繫。</p>
-    <form class="contact-form">
-      <input type="text" placeholder="您的遊戲帳號" required />
-      <input type="email" placeholder="您的電子信箱" required />
-      <textarea rows="5" placeholder="請輸入您的問題內容..." required></textarea>
-      <button type="submit">送出</button>
-    </form>
-  </section>
+    <section class="server-status">
+      <h2>伺服器狀態</h2>
+      <div class="status-box">
+        主線伺服器：<span class="status-online">✔ 線上</span><br>
+        測試伺服器：<span class="status-offline">✘ 離線</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>累積贊助計畫</h2>
+      <p>目標金額：NT$10,000｜目前累積：NT$4,500</p>
+      <div style="background:#444; border-radius:6px; overflow:hidden; height:20px;">
+        <div style="background:#ffaa33; width:45%; height:100%;"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>角色排行榜</h2>
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>角色名稱</th>
+            <th>職業</th>
+            <th>等級</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>雷光戰魂</td><td>劍士</td><td>150</td></tr>
+          <tr><td>2</td><td>幻影魔導</td><td>法師</td><td>147</td></tr>
+          <tr><td>3</td><td>月影刺客</td><td>刺客</td><td>143</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>序號兌換</h2>
+      <form>
+        <input type="text" placeholder="請輸入您的序號" required>
+        <button type="submit">兌換</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>聯繫客服</h2>
+      <form>
+        <input type="text" placeholder="遊戲帳號" required>
+        <input type="email" placeholder="電子郵件" required>
+        <textarea rows="4" placeholder="請輸入您的問題..."></textarea>
+        <button type="submit">送出</button>
+      </form>
+    </section>
+  </div>
 </body>
 </html>
