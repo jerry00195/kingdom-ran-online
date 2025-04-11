@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -27,12 +26,24 @@
       background: #ffaa33;
       border: none;
       color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 14px 28px;
+      border-radius: 50px; /* 完全圓形 */
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 0 10px #ffaa33;
-      font-size: 16px;
-      margin: 10px;
+      box-shadow: 0 6px 18px rgba(255, 170, 51, 0.5);
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #e6891a;
+      box-shadow: 0 10px 25px rgba(255, 170, 51, 0.7);
+      transform: scale(1.05);
+    }
+    .btn:active {
+      background-color: #cc7a00;
+      box-shadow: 0 5px 10px rgba(255, 170, 51, 0.8);
+      transform: scale(0.95);
     }
     .section {
       text-align: center;
@@ -53,15 +64,41 @@
       width: 180px;
       margin: 5px;
     }
+    #announcement {
+      background-color: #ffcc00;
+      color: black;
+      padding: 15px 0;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: slide-down 1s ease-out;
+    }
+    @keyframes slide-down {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="announcement">
+    <span>【最新公告】我們正在進行維護，請耐心等候！🎮</span>
+    <button onclick="document.getElementById('announcement').style.display='none';" style="background: none; border: none; color: black; font-size: 20px; cursor: pointer; font-weight: bold;">✖</button>
+  </div>
+
   <header style="text-align:center; padding: 40px 20px; background: rgba(0,0,0,0.4); box-shadow: 0 4px 10px rgba(0,0,0,0.6);">
-    <img src="logo.png" alt="Kingdom Ran Logo" style="max-width: 160px;">
+    <img src="logo.png" alt="Kingdom Ran Logo" style="max-width: 220px;">
     <h1 style="font-size: 36px; margin: 10px 0 0;">Kingdom Ran Online</h1>
     <p style="font-size: 16px; color: #ffaa33;">挑戰你的極限，重返榮耀之路</p>
   </header>
-  <h1 style="text-align:center; margin-top:40px;">Kingdom Ran Online</h1>
+
   <div style="text-align:center; margin-top:30px;">
     <button class="btn" onclick="document.getElementById('login').style.display='block'">會員登入</button>
     <button class="btn" onclick="document.getElementById('shop').style.display='block'">進入商城</button>
