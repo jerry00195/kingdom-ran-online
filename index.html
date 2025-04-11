@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -32,15 +31,74 @@
       cursor: pointer;
       box-shadow: 0 0 10px #ffaa33;
       font-size: 16px;
+      margin: 10px;
+    }
+    .section {
+      text-align: center;
+      margin-top: 60px;
+    }
+    table {
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-collapse: collapse;
+      color: white;
+    }
+    table td, table th {
+      border: 1px solid #ffaa33;
+      padding: 8px 16px;
+    }
+    input[type="text"] {
+      padding: 6px;
+      width: 180px;
+      margin: 5px;
     }
   </style>
 </head>
 <body>
   <h1 style="text-align:center; margin-top:40px;">Kingdom Ran Online</h1>
   <div style="text-align:center; margin-top:30px;">
-    <button class="btn" onclick="alert('🛒 商城功能尚未串接')">進入商城</button>
-    <button class="btn" onclick="alert('🎒 背包尚未串接')" style="margin-left:20px;">查看背包</button>
+    <button class="btn" onclick="document.getElementById('login').style.display='block'">會員登入</button>
+    <button class="btn" onclick="document.getElementById('shop').style.display='block'">進入商城</button>
+    <button class="btn" onclick="document.getElementById('bag').style.display='block'">查看背包</button>
+    <button class="btn" onclick="document.getElementById('rank').style.display='block'">角色排行榜</button>
+    <button class="btn" onclick="document.getElementById('redeem').style.display='block'">序號兌換</button>
   </div>
-  <p style="text-align:center; margin-top:50px; color:gray; font-size:14px;">（此為商城首頁示意，完整版功能可由我協助載入）</p>
+
+  <div id="login" class="section" style="display:none;">
+    <h2>會員登入</h2>
+    <input type="text" placeholder="帳號"> <input type="text" placeholder="密碼"> <button class="btn">登入</button>
+  </div>
+
+  <div id="shop" class="section" style="display:none;">
+    <h2>道具商城</h2>
+    <table>
+      <tr><th>道具名稱</th><th>價格</th><th>操作</th></tr>
+      <tr><td>高級治癒藥水</td><td>100</td><td><button class="btn">購買</button></td></tr>
+      <tr><td>力量護符</td><td>500</td><td><button class="btn">購買</button></td></tr>
+    </table>
+  </div>
+
+  <div id="bag" class="section" style="display:none;">
+    <h2>我的背包</h2>
+    <p>目前沒有資料（待串接）</p>
+  </div>
+
+  <div id="rank" class="section" style="display:none;">
+    <h2>角色排行榜</h2>
+    <table>
+      <tr><th>排名</th><th>角色名稱</th><th>職業</th><th>等級</th></tr>
+      <tr><td>1</td><td>雷光戰魂</td><td>劍道</td><td>150</td></tr>
+      <tr><td>2</td><td>幻影魔導</td><td>氣功</td><td>147</td></tr>
+      <tr><td>3</td><td>月影刺客</td><td>弓箭</td><td>143</td></tr>
+      <tr><td>4</td><td>鋼拳霸王</td><td>格鬥</td><td>140</td></tr>
+    </table>
+  </div>
+
+  <div id="redeem" class="section" style="display:none;">
+    <h2>序號兌換</h2>
+    <input type="text" placeholder="輸入序號"> <button class="btn">兌換</button>
+  </div>
+
+  <p style="text-align:center; margin-top:50px; color:gray; font-size:14px;">（此為商城模擬頁，完整版功能可由我協助串接）</p>
 </body>
 </html>
