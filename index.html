@@ -164,12 +164,31 @@
 </a>
 </div><div class="top-button-wrapper"><a class="top-button" href="#" target="_blank">贊助方案</a><a class="top-button" href="https://www.facebook.com/kingdomran2025/" target="_blank">粉絲專頁</a><a class="top-button" href="https://www.facebook.com/groups/kingdomran2025" target="_blank">社團交流區</a><a class="top-button" href="https://m.me/586648687873912" target="_blank">聯繫客服</a></div><div class="container" style="display: flex; justify-content: center; width: 100%;"><div class="center" style="width: 800px; margin: 0 auto; text-align: center;"><div class="panel">
 <div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
-<div id="carousel-inner" style="white-space: nowrap; transition: transform 0.5s ease;">
-<img alt="活動圖示1" src="IMG_0828.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
-<img alt="活動圖示2" src="IMG_0826.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
-<img alt="活動圖示3" src="IMG_0827.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
+<div id="fb-carousel" style="position:relative; width:500px; height:673px; margin:0 auto; overflow:hidden;">
+<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421700843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:1;" width="500"></iframe>
+<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421490843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:0;" width="500"></iframe>
+<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421760843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:0;" width="500"></iframe>
+<button onclick="fbPrev()" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">上一則</button>
+<button onclick="fbNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一則</button>
 </div>
-<button onclick="slideNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一張</button>
+<script>
+  let fbIndex = 0;
+  const fbFrames = document.querySelectorAll('.fb-frame');
+  function showFb(index) {
+    fbFrames.forEach((f, i) => {
+      f.style.opacity = (i === index) ? '1' : '0';
+    });
+  }
+  function fbNext() {
+    fbIndex = (fbIndex + 1) % fbFrames.length;
+    showFb(fbIndex);
+  }
+  function fbPrev() {
+    fbIndex = (fbIndex - 1 + fbFrames.length) % fbFrames.length;
+    showFb(fbIndex);
+  }
+  setInterval(fbNext, 6000);
+</script>
 </div>
 <script>
           let slideIndex = 0;
