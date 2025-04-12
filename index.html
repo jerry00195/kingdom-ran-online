@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1000">
-  <title>Kingdom Ran Online</title>
-  <link rel="icon" href="LOGO.png">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=1000" name="viewport"/>
+<title>Kingdom Ran Online</title>
+<link href="LOGO.png" rel="icon"/>
+<style>
     * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('normal.cur'), auto; }
     body {
       background: #000 url('222_compressed.png') no-repeat center top;
@@ -38,7 +39,7 @@
       background: url('https://rossoran.com/images/scroll_bg.png') repeat-x;
       padding: 6px 12px;
       border: 1px solid #ff4444;
-      color: #fff200;
+      color: #000000;
       font-weight: bold;
       font-size: 14px;
       width: 1000px;
@@ -154,36 +155,23 @@
 </style>
 </head>
 <body>
-  <div class="header">
-    <img src="LOGO.png" alt="Kingdom Ran Logo" class="logo-effect">
-    <div class="slogan">挑戰你的極限，重返榮耀之路</div>
-  </div>
-
-  
-<div class="top-button-wrapper">
-  <a href="#" class="top-button">客戶端下載</a>
-  <a href="#" class="top-button">註冊帳號</a>
-  <a href="#" class="top-button">道具商城</a>
+<div class="header"><img alt="Kingdom Ran Logo" class="logo-effect" src="LOGO.png"/></div>
+<div class="marquee" style="margin-bottom: 20px;">
+<span>最新最好玩的全新伺服器，Kingdom Ran Online 即將與您見面！</span>
+</div><div class="top-button-wrapper"><div style="text-align: center; margin: 20px 0;"><img alt="遊戲下載" src="game_download_btn02_1509.png" style="display: block; margin: 0 auto; width: 460px; height: auto;"/></div></div><div style="text-align:center; margin: 20px 0;">
+<a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank">
+<img alt="立即贊助" onmouseout="this.src='recharge_off.gif';" onmouseover="this.src='recharge_on.gif';" src="recharge_off.gif" style="width:226px;height:70px;"/>
+</a>
+</div><div class="top-button-wrapper"><a class="top-button" href="#" target="_blank">贊助方案</a><a class="top-button" href="https://www.facebook.com/kingdomran2025/" target="_blank">粉絲專頁</a><a class="top-button" href="https://www.facebook.com/groups/kingdomran2025" target="_blank">社團交流區</a><a class="top-button" href="https://m.me/586648687873912" target="_blank">聯繫客服</a></div><div class="container" style="display: flex; justify-content: center; width: 100%;"><div class="center" style="width: 800px; margin: 0 auto; text-align: center;"><div class="panel">
+<div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
+<div id="carousel-inner" style="white-space: nowrap; transition: transform 0.5s ease;">
+<img alt="活動圖示1" src="IMG_0828.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
+<img alt="活動圖示2" src="IMG_0826.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
+<img alt="活動圖示3" src="IMG_0827.JPG" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;"/>
 </div>
-    
-
-  <div style="margin-top: 10px;"></div>
-  <div class="marquee" style="margin-bottom: 20px;">
-    <span>最新最好玩的全新伺服器，Kingdom Ran Online 即將與您見面！</span>
-  </div>
-
-  <div class="container">
-    <div class="center">
-      <div class="panel">
-        <div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
-          <div id="carousel-inner" style="white-space: nowrap; transition: transform 0.5s ease;">
-            <img src="IMG_0828.JPG" alt="活動圖示1" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-            <img src="IMG_0826.JPG" alt="活動圖示2" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-            <img src="IMG_0827.JPG" alt="活動圖示3" style="width:100%;display:inline-block;border-radius:6px;box-shadow:0 0 10px #ffaa33;">
-          </div>
-          <button onclick="slideNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一張</button>
-        </div>
-        <script>
+<button onclick="slideNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一張</button>
+</div>
+<script>
           let slideIndex = 0;
           const inner = document.getElementById('carousel-inner');
           const total = inner.children.length;
@@ -193,51 +181,17 @@
           }
           setInterval(slideNext, 5000);
         </script>
-      </div>
-      <div class="panel">
-        <div class="title">最新公告</div>
-        <table class="ann-table">
-          <tr><td class="ann-title">[公告] 伺服器維護通知</td><td class="ann-date">2025/04/10</td></tr>
-          <tr><td class="ann-title">[活動] 春季轉蛋機登場！</td><td class="ann-date">2025/04/08</td></tr>
-          <tr><td class="ann-title">[公告] 新地圖開放「幻影森林」</td><td class="ann-date">2025/04/06</td></tr>
-        </table>
-      </div>
-      <div class="panel">
-        <div class="title">伺服器資訊</div>
-        <p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
-        <p>版本：EP7 中文版</p>
-        <p>線上人數：9999</p>
-      </div>
-    </div>
-    <div class="right">
-      <div class="panel">
-        <div class="title">會員登入</div>
-        <form onsubmit="return false;">
-          <input type="text" placeholder="帳號" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
-          <input type="password" placeholder="密碼" style="width:100%;padding:6px;margin-bottom:8px;font-size:14px;background:#222;color:white;border:1px solid #444;">
-          <button style="width:100%;padding:8px;background:#ffaa33;color:#000;border:none;border-radius:4px;font-weight:bold;font-size:14px;">登入</button>
-        </form>
-      </div>
-      
-<div style="text-align:center; margin: 20px 0;">
-  <a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank">
-    <img src="recharge_off.gif" alt="立即贊助"
-         onmouseover="this.src='recharge_on.gif';"
-         onmouseout="this.src='recharge_off.gif';"
-         style="width:226px;height:70px;">
-  </a>
-</div>
-<div class="panel">
-        <div class="title">社群連結</div>
-        <a href="https://www.facebook.com/kingdomran2025/" target="_blank" class="nav-button">粉絲專頁</a>
-        <a href="https://www.facebook.com/groups/kingdomran2025" target="_blank" class="nav-button">社團交流區</a>
-        <a href="https://m.me/586648687873912" target="_blank" class="nav-button">聯繫客服</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    © 2025 Kingdom Ran Online. All Rights Reserved.
-  </footer>
-</body>
+</div><div class="panel">
+<div class="title">最新公告</div>
+<table class="ann-table">
+<tr><td class="ann-title">[公告] 伺服器維護通知</td><td class="ann-date">2025/04/10</td></tr>
+<tr><td class="ann-title">[活動] 春季轉蛋機登場！</td><td class="ann-date">2025/04/08</td></tr>
+<tr><td class="ann-title">[公告] 新地圖開放「幻影森林」</td><td class="ann-date">2025/04/06</td></tr>
+</table>
+</div><div class="panel">
+<div class="title">伺服器資訊</div>
+<p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
+<p>版本：EP7 中文版</p>
+<p>線上人數：9999</p>
+</div></div></div></body>
 </html>
