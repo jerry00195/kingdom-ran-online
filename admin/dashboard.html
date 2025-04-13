@@ -25,11 +25,21 @@
     table {
       width: 100%; border-collapse: collapse; margin-top: 20px; }
     th, td {
-      border: 1px solid #444; padding: 10px; }
+      border: 1px solid #444; padding: 10px; vertical-align: top; }
     th {
       background: #222; color: #ffcc00; }
     #imagePreview { margin-top: 10px; max-width: 300px; display: block; }
     .action-btn { margin-right: 5px; }
+    button {
+      background: #333;
+      color: #ffcc00;
+      border: 1px solid #777;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
   </style>
 </head>
 <body>
@@ -65,8 +75,8 @@
     <label>10. 精選影片網址</label>
     <input type="text" id="video">
 
-    <label>11. 首頁圖片網址</label>
-    <input type="text" id="image">
+    <label>11. 首頁圖片網址（多筆換行，最多 20 筆）</label>
+    <textarea id="image" placeholder="每行一筆圖片網址"></textarea>
     <div>預覽：</div>
     <img id="imagePreview" src="" alt="預覽圖">
 
@@ -92,12 +102,14 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const SUPABASE_URL = 'https://zkwxsbgfebrjzvaxxkez.supabase.co';
-      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI';
-      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const SUPABASE_KEY = 'eyJhbGciOi...';
+      const { createClient } = supabase;
+      const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
       const imageInput = document.getElementById('image');
       imageInput.addEventListener('input', () => {
-        document.getElementById('imagePreview').src = imageInput.value;
+        const firstLine = imageInput.value.split('\n')[0];
+        document.getElementById('imagePreview').src = firstLine;
       });
 
       window.saveSettings = async function () {
@@ -116,12 +128,12 @@
           server: server.value,
           id: 1
         };
-        const { error } = await supabase.from('settings').upsert([data], { onConflict: ['id'] });
+        const { error } = await supabaseClient.from('settings').upsert([data], { onConflict: ['id'] });
         alert(error ? '儲存失敗' : '設定已儲存');
       };
 
       window.loadAnnouncements = async function () {
-        const { data, error } = await supabase.from('announcement').select('*').order('date', { ascending: false });
+        const { data, error } = await supabaseClient.from('announcement').select('*').order('date', { ascending: false });
         const tbody = document.getElementById('announcementBody');
         tbody.innerHTML = '';
         if (data) data.forEach((item) => {
@@ -139,13 +151,13 @@
       };
 
       window.updateField = async function (id, key, value) {
-        const { error } = await supabase.from('announcement').update({ [key]: value }).eq('id', id);
+        const { error } = await supabaseClient.from('announcement').update({ [key]: value }).eq('id', id);
         if (error) alert('更新失敗');
       };
 
       window.deleteAnnouncement = async function (id) {
         if (!confirm('確定要刪除這則公告嗎？')) return;
-        const { error } = await supabase.from('announcement').delete().eq('id', id);
+        const { error } = await supabaseClient.from('announcement').delete().eq('id', id);
         if (error) alert('刪除失敗');
         else loadAnnouncements();
       };
@@ -155,7 +167,7 @@
         const content = annContent.value;
         const date = annDate.value;
         if (!title || !content || !date) return alert('請完整輸入公告資訊');
-        const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
+        const { error } = await supabaseClient.from('announcement').insert([{ title, content, date }]);
         alert(error ? '新增失敗' : '公告已新增');
         if (!error) loadAnnouncements();
       };
@@ -163,19 +175,18 @@
       loadAnnouncements();
     });
   </script>
-<marquee id="marqueeText" behavior="scroll" direction="left" style="color: #ffcc00; font-weight: bold; margin-top: 30px; display:block; text-align:center;">載入中...</marquee>
 
-<script>
-  document.addEventListener('DOMContentLoaded', async () => {
-    const supabase = window.supabase.createClient(
-      'https://zkwxsbgfebrjzvaxxkez.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
-    );
-    const { data } = await supabase.from('settings').select('marquee').eq('id', 1).single();
-    if (data && data.marquee) {
-      document.getElementById('marqueeText').innerText = data.marquee;
-    }
-  });
-</script>
+  <marquee id="marqueeText" behavior="scroll" direction="left" style="color: #ffcc00; font-weight: bold; margin-top: 30px; display:block; text-align:center;">載入中...</marquee>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const { createClient } = supabase;
+      const supabaseClient = createClient('https://zkwxsbgfebrjzvaxxkez.supabase.co', 'eyJhbGciOi...');
+      const { data } = await supabaseClient.from('settings').select('marquee').eq('id', 1).single();
+      if (data && data.marquee) {
+        document.getElementById('marqueeText').innerText = data.marquee;
+      }
+    });
+  </script>
 </body>
 </html>
