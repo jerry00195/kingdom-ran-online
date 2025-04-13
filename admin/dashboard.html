@@ -78,8 +78,9 @@
   <label>10. 精選影片網址</label>
   <input type="text" id="video">
 
-  <label>11. 圖片網址（多筆換行）</label>
-  <textarea id="images"></textarea>
+  <label>11. 圖片網址（最多 20 筆，每行一筆）</label>
+<textarea id="images" maxlength="5000" placeholder="請輸入每行一筆圖片網址，最多 20 行"></textarea>
+<small style="color:#999;">※ 超過 20 行將僅儲存前 20 行，建議勿輸入過長網址。</small>
 
   <label>13. 伺服器資訊（格式：第一行狀態、第二行版本）</label>
   <textarea id="server"></textarea>
@@ -122,7 +123,7 @@
       group: group.value,
       contact: contact.value,
       video: video.value,
-      images: images.value,
+      images: images.value.split('\n').slice(0, 20).join('\n'),
       server: server.value
     };
     await supabase.from('settings').upsert({ id: 1, ...data });
@@ -142,7 +143,7 @@
       group.value = data.group || '';
       contact.value = data.contact || '';
       video.value = data.video || '';
-      images.value = data.images || '';
+      images.value = (data.images || '').split('\n').slice(0, 20).join('\n');
       server.value = data.server || '';
     }
   }
