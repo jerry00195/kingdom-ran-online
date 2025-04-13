@@ -1,163 +1,141 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kingdom Ran 官網後台管理</title>
+  <meta charset="utf-8"/>
+  <meta content="width=1000" name="viewport"/>
+  <title>Kingdom Ran 後台管理</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script>
-    const SUPABASE_URL = 'https://yxeeyqexujlythzyeqff.supabase.co';
-    const SUPABASE_KEY = 'YOUR_ANON_KEY'; // 我會提供實際 key
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  </script>
+  <link href="LOGO.png" rel="icon"/>
   <style>
-    body {
-      background: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1, h2 { color: #ffcc00; }
-    .form { margin-bottom: 30px; }
-    label { display: block; margin-top: 10px; }
-    input, textarea, button {
-      padding: 8px;
-      margin-top: 5px;
-      font-size: 14px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    textarea { height: 80px; }
-    table {
-      width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td {
-      border: 1px solid #444; padding: 10px; }
-    th {
-      background: #222; color: #ffcc00; }
-    #imagePreview { margin-top: 10px; max-width: 300px; display: block; }
-    .action-btn { margin-right: 5px; }
+    body { background: #000; color: #fff; font-family: Arial; padding: 20px; }
+    .panel { background: #111; padding: 15px; margin-bottom: 20px; border: 1px solid #333; }
+    .title { font-size: 20px; margin-bottom: 10px; color: #ffcc00; }
+    input, textarea { width: 100%; background: #222; color: #fff; border: 1px solid #666; margin-bottom: 5px; padding: 8px; }
+    button { background: #ffcc00; border: none; padding: 5px 10px; cursor: pointer; margin-right: 5px; }
   </style>
 </head>
 <body>
-  <h1>Kingdom Ran 後台管理</h1>
-  <div class="form">
-    <label>1. LOGO 圖片網址</label>
-    <input type="text" id="logo">
-
-    <label>2. 背景音樂網址</label>
-    <input type="text" id="bgm">
-
-    <label>3. 跑馬燈內容</label>
-    <input type="text" id="marquee">
-
-    <label>4. 遊戲下載網址</label>
-    <input type="text" id="download">
-
-    <label>5. 立即充值網址</label>
-    <input type="text" id="recharge">
-
-    <label>6. 贊助方案網址</label>
-    <input type="text" id="donate">
-
-    <label>7. 粉絲專頁網址</label>
-    <input type="text" id="fb">
-
-    <label>8. 社團交流區網址</label>
-    <input type="text" id="group">
-
-    <label>9. 聯繫客服網址</label>
-    <input type="text" id="contact">
-
-    <label>10. 精選影片網址</label>
-    <input type="text" id="video">
-
-    <label>11. 首頁圖片網址</label>
-    <input type="text" id="image">
-    <div>預覽：</div>
-    <img id="imagePreview" src="" alt="預覽圖">
-
-    <label>13. 伺服器資訊（狀態與版本）</label>
-    <textarea id="server"></textarea>
-
-    <button onclick="saveSettings()">儲存所有設定</button>
+  <div class="panel">
+    <div class="title">LOGO 圖片網址</div>
+    <input type="text" id="logo" placeholder="LOGO 圖片網址">
+    <div class="title">背景音樂網址</div>
+    <input type="text" id="bgm" placeholder="背景音樂網址">
+    <div class="title">跑馬燈內容</div>
+    <input type="text" id="marquee" placeholder="跑馬燈內容">
+    <div class="title">遊戲下載網址</div>
+    <input type="text" id="download" placeholder="遊戲下載網址">
+    <div class="title">立即充值網址</div>
+    <input type="text" id="recharge" placeholder="立即充值網址">
+    <div class="title">贊助方案網址</div>
+    <input type="text" id="donate" placeholder="贊助方案網址">
+    <div class="title">粉絲專頁網址</div>
+    <input type="text" id="fb" placeholder="粉絲專頁網址">
+    <div class="title">社團交流區網址</div>
+    <input type="text" id="group" placeholder="社團交流區網址">
+    <div class="title">聯繫客服網址</div>
+    <input type="text" id="contact" placeholder="聯繫客服網址">
+    <div class="title">精選影片網址</div>
+    <input type="text" id="video" placeholder="影片網址">
+    <div class="title">首頁圖片網址</div>
+    <input type="text" id="image" placeholder="圖片網址">
+    <div class="title">伺服器狀態</div>
+    <input type="text" id="status" placeholder="伺服器狀態">
+    <div class="title">版本</div>
+    <input type="text" id="version" placeholder="伺服器版本">
+    <button onclick="saveSettings()">儲存設定</button>
+    <button onclick="logout()">帳號登出</button>
   </div>
 
-  <h2>12. 最新公告管理</h2>
-  <div class="form">
-    <input type="text" id="annTitle" placeholder="輸入公告標題">
-    <input type="date" id="annDate">
-    <textarea id="annContent" placeholder="輸入公告內文"></textarea>
+  <div class="panel">
+    <div class="title">新增公告</div>
+    <input type="text" id="newTitle" placeholder="標題"/>
+    <textarea id="newContent" placeholder="內容"></textarea>
+    <input type="date" id="newDate"/>
     <button onclick="addAnnouncement()">新增公告</button>
   </div>
 
-  <table id="announcementTable">
-    <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
-    <tbody id="announcementBody"></tbody>
-  </table>
+  <div class="panel">
+    <div class="title">最新公告管理</div>
+    <div id="front-announcement">載入中...</div>
+  </div>
 
-  <script>
-    const imageInput = document.getElementById('image');
-    imageInput.addEventListener('input', () => {
-      document.getElementById('imagePreview').src = imageInput.value;
-    });
+<script>
+const supabase = supabase.createClient(
+  'https://yxeeyqexujlythzyeqff.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+);
 
-    async function saveSettings() {
-      const data = {
-        logo: logo.value,
-        bgm: bgm.value,
-        marquee: marquee.value,
-        download: download.value,
-        recharge: recharge.value,
-        donate: donate.value,
-        fb: fb.value,
-        group: group.value,
-        contact: contact.value,
-        video: video.value,
-        image: image.value,
-        server: server.value
-      };
-      const { error } = await supabase.from('settings').upsert([data], { onConflict: ['id'] });
-      alert(error ? '儲存失敗' : '設定已儲存');
-    }
+async function saveSettings() {
+  const data = {
+    id: 1,
+    logo: document.getElementById('logo').value,
+    bgm: document.getElementById('bgm').value,
+    marquee: document.getElementById('marquee').value,
+    download: document.getElementById('download').value,
+    recharge: document.getElementById('recharge').value,
+    donate: document.getElementById('donate').value,
+    fb: document.getElementById('fb').value,
+    group: document.getElementById('group').value,
+    contact: document.getElementById('contact').value,
+    video: document.getElementById('video').value,
+    image: document.getElementById('image').value,
+    status: document.getElementById('status').value,
+    version: document.getElementById('version').value
+  };
+  const { error } = await supabase.from('settings').upsert([data], { onConflict: ['id'] });
+  alert(error ? '儲存失敗' : '設定已儲存');
+}
 
-    async function loadAnnouncements() {
-      const { data, error } = await supabase.from('announcement').select('*').order('date', { ascending: false });
-      const tbody = document.getElementById('announcementBody');
-      tbody.innerHTML = '';
-      if (data) data.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
-          <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
-          <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
-          <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+function logout() {
+  alert('已登出');
+  window.location.href = '/admin/login.html';
+}
 
-    async function updateField(id, key, value) {
-      const { error } = await supabase.from('announcement').update({ [key]: value }).eq('id', id);
-      if (error) alert('更新失敗');
-    }
+async function loadFrontAnnouncements() {
+  const { data, error } = await supabase.from('announcement').select('*').order('date', { ascending: false });
+  const container = document.getElementById('front-announcement');
+  if (!container) return;
+  if (error || !data || data.length === 0) {
+    container.innerHTML = '<p>目前沒有公告</p>'; return;
+  }
+  container.innerHTML = data.map(a => `
+    <div class="panel">
+      <input value="${a.title}" onchange="updateField(${a.id}, 'title', this.value)"/>
+      <textarea onchange="updateField(${a.id}, 'content', this.value)">${a.content}</textarea>
+      <input type="date" value="${a.date}" onchange="updateField(${a.id}, 'date', this.value)"/>
+      <button onclick="deleteAnnouncement(${a.id})">刪除</button>
+    </div>`).join('');
+}
 
-    async function deleteAnnouncement(id) {
-      if (!confirm('確定要刪除這則公告嗎？')) return;
-      const { error } = await supabase.from('announcement').delete().eq('id', id);
-      if (error) alert('刪除失敗');
-      else loadAnnouncements();
-    }
+async function updateField(id, key, value) {
+  await supabase.from('announcement').update({ [key]: value }).eq('id', id);
+}
 
-    async function addAnnouncement() {
-      const title = annTitle.value;
-      const content = annContent.value;
-      const date = annDate.value;
-      if (!title || !content || !date) return alert('請完整輸入公告資訊');
-      const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
-      alert(error ? '新增失敗' : '公告已新增');
-      if (!error) loadAnnouncements();
-    }
+async function deleteAnnouncement(id) {
+  if (!confirm('確定要刪除這則公告嗎？')) return;
+  await supabase.from('announcement').delete().eq('id', id);
+  loadFrontAnnouncements();
+}
 
-    loadAnnouncements();
-  </script>
+async function addAnnouncement() {
+  const title = document.getElementById('newTitle').value;
+  const content = document.getElementById('newContent').value;
+  const date = document.getElementById('newDate').value;
+  if (!title || !content || !date) return alert('請填寫完整資料');
+  const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
+  if (!error) {
+    document.getElementById('newTitle').value = '';
+    document.getElementById('newContent').value = '';
+    document.getElementById('newDate').value = '';
+    loadFrontAnnouncements();
+  } else {
+    alert('新增失敗');
+  }
+}
+
+loadFrontAnnouncements();
+</script>
+
 </body>
 </html>
