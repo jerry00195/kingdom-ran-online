@@ -1,47 +1,154 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>官網後台管理</title>
+  <meta charset="UTF-8" />
+  <title>後台管理 - Kingdom Ran</title>
   <style>
-    body { background: #1b1b1b; color: white; font-family: sans-serif; padding: 30px; }
-    h2 { border-bottom: 1px solid #444; padding-bottom: 5px; }
-    label { display: block; margin-top: 15px; }
-    input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: none; background: #333; color: white; }
-    button { margin-top: 20px; padding: 10px 20px; background: #008cff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #0073cc; }
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1, h2 { color: #ffcc00; }
+    .form {
+      margin-bottom: 30px;
+    }
+    input, textarea, button {
+      padding: 8px;
+      margin: 5px;
+      font-size: 14px;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+    }
+    th {
+      background: #222;
+      color: #ffcc00;
+    }
+    .ann-title { color: #ffaa33; text-align: left; }
+    .ann-date { color: #ccc; text-align: right; }
   </style>
 </head>
 <body>
-  <h2>Kingdom Ran 後台管理</h2>
+  <h1>最新公告管理</h1>
+  <div class="form">
+    <input type="text" id="title" placeholder="輸入公告標題" size="40" />
+    <input type="date" id="date" />
+    <textarea id="content" placeholder="輸入公告內文"></textarea>
+    <button onclick="addAnnouncement()">新增公告</button>
+  </div>
 
-  <label>跑馬燈文字</label>
-  <input type="text" id="marquee" value="挑戰你的極限，重返榮耀之路">
+  <table id="announcement-table">
+    <thead>
+      <tr><th>標題</th><th>內文</th><th>日期</th><th>操作</th></tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
 
-  <label>精選影片網址（Facebook）</label>
-  <input type="text" id="video" value="https://www.facebook.com/kingdomran2025/videos/518368071329970">
+  <h2>首頁圖片管理</h2>
+  <div class="form">
+    <input type="text" id="mainImageUrl" placeholder="圖片網址（例如：https://...）" size="60">
+    <button onclick="saveImageUrl()">儲存圖片網址</button>
+    <p>預覽：<br><img id="imagePreview" src="" style="max-width:300px;margin-top:10px;"></p>
+  </div>
 
-  <label>公告內容</label>
-  <textarea id="news" rows="5">目前維護中，敬請期待！</textarea>
-
-  <button onclick="save()">儲存更新</button>
-  <p id="status"></p>
+  <h2>伺服器資訊管理</h2>
+  <div class="form">
+    <textarea id="serverInfo" placeholder="輸入伺服器資訊"></textarea>
+    <button onclick="saveServerInfo()">儲存伺服器資訊</button>
+  </div>
 
   <script>
-    if (localStorage.getItem('loggedIn') !== 'yes') {
-      window.location.href = 'login.html';
+    const STORAGE_KEY = 'announcementData';
+    const IMAGE_KEY = 'mainImageUrl';
+    const SERVER_KEY = 'serverInfo';
+
+    function loadAnnouncements() {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      data.forEach(({ title, content, date }) => addRow(title, content, date));
     }
 
-    function save() {
-      const data = {
-        marquee: document.getElementById('marquee').value,
-        video: document.getElementById('video').value,
-        news: document.getElementById('news').value
-      };
-      localStorage.setItem('siteData', JSON.stringify(data));
-      document.getElementById('status').innerText = '已儲存（模擬儲存於 localStorage）';
+    function addAnnouncement() {
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+      const date = document.getElementById('date').value;
+      if (!title || !date || !content) return alert('請輸入完整內容、內文與日期');
+
+      addRow(title, content, date);
+
+      const current = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      current.unshift({ title, content, date });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+
+      document.getElementById('title').value = '';
+      document.getElementById('content').value = '';
+      document.getElementById('date').value = '';
     }
+
+    function addRow(title, content, date) {
+      const tbody = document.getElementById('announcement-table').querySelector('tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="ann-title">${title}</td>
+        <td>${content}</td>
+        <td class="ann-date">${date}</td>
+        <td><button onclick="deleteRow(this)">刪除</button></td>
+      `;
+      tbody.appendChild(row);
+    }
+
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      const title = row.children[0].innerText;
+      const content = row.children[1].innerText;
+      const date = row.children[2].innerText;
+      row.remove();
+
+      const current = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const updated = current.filter(item => !(item.title === title && item.content === content && item.date === date));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    }
+
+    function saveImageUrl() {
+      const url = document.getElementById('mainImageUrl').value;
+      localStorage.setItem(IMAGE_KEY, url);
+      document.getElementById('imagePreview').src = url;
+    }
+
+    function saveServerInfo() {
+      const info = document.getElementById('serverInfo').value;
+      localStorage.setItem(SERVER_KEY, info);
+    }
+
+    function loadImagePreview() {
+      const url = localStorage.getItem(IMAGE_KEY);
+      if (url) {
+        document.getElementById('mainImageUrl').value = url;
+        document.getElementById('imagePreview').src = url;
+      }
+    }
+
+    function loadServerInfo() {
+      const info = localStorage.getItem(SERVER_KEY);
+      if (info) {
+        document.getElementById('serverInfo').value = info;
+      }
+    }
+
+    loadAnnouncements();
+    loadImagePreview();
+    loadServerInfo();
   </script>
 </body>
 </html>
