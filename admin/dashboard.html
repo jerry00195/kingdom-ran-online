@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Kingdom Ran 後台管理</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
   <style>
     body {
       background: #111;
@@ -15,20 +16,14 @@
     h1, h2, label {
       color: #ffd700;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    h2 {
-      margin-top: 30px;
-      font-size: 22px;
-    }
+    h1 { font-size: 28px; margin-bottom: 20px; }
+    h2 { margin-top: 30px; font-size: 22px; }
     label {
       font-weight: bold;
       display: block;
       margin-top: 12px;
     }
-    input, textarea, button {
+    input, textarea, button, select {
       display: block;
       margin-top: 6px;
       margin-bottom: 12px;
@@ -42,21 +37,6 @@
     }
     textarea {
       min-height: 80px;
-    }
-    .color-btns button {
-      display: inline-block;
-      width: auto;
-      margin-right: 6px;
-      margin-bottom: 6px;
-      padding: 6px 12px;
-      font-size: 14px;
-      background: #333;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    .color-btns button:hover {
-      background: #555;
     }
     .form-section {
       margin-bottom: 40px;
@@ -74,9 +54,6 @@
       cursor: pointer;
       border-radius: 4px;
       margin-top: 40px;
-    }
-    .marquee-item {
-      margin-bottom: 15px;
     }
     table {
       width: 100%;
@@ -114,16 +91,10 @@
 
   <div class="form-section">
     <label>2. 跑馬燈內容</label>
-    <div class="color-btns">
-      <label>快速套用跑馬燈顏色</label>
-      <button onclick="insertColor('red')">🔴 紅色</button>
-      <button onclick="insertColor('yellow')">🟡 黃色</button>
-      <button onclick="insertColor('green')">🟢 綠色</button>
-      <button onclick="insertColor('blue')">🔵 藍色</button>
-      <button onclick="insertColor('purple')">🟣 紫色</button>
-      <button onclick="insertColor('black')">⚫ 黑色</button>
-      <button onclick="insertIcon()">⭐ 插入圖示</button>
-    </div>
+    <label>跑馬燈標題（支援樣式編輯）</label>
+    <textarea id="marqueeInput"></textarea>
+    <script>CKEDITOR.replace('marqueeInput');</script>
+
     <label>跑馬燈項目</label>
     <div id="marqueeList"></div>
     <button onclick="addMarqueeItem()">＋ 新增跑馬燈項目</button>
@@ -132,25 +103,18 @@
   <div class="form-section">
     <label>3. 遊戲下載網址</label>
     <input type="text" id="downloadInput" />
-
     <label>4. 立即充值網址</label>
     <input type="text" id="rechargeInput" />
-
     <label>5. 贊助方案網址</label>
     <input type="text" id="donateInput" />
-
     <label>6. 粉絲專頁網址</label>
     <input type="text" id="fbInput" />
-
     <label>7. 社團交流區網址</label>
     <input type="text" id="groupInput" />
-
     <label>8. 聯繫客服網址</label>
     <input type="text" id="contactInput" />
-
     <label>9. 影片網址</label>
     <input type="text" id="videoInput" />
-
     <label>11. 伺服器資訊</label>
     <textarea id="serverInput" placeholder="版本與伺服器狀態"></textarea>
   </div>
@@ -159,9 +123,26 @@
 
   <div class="form-section">
     <h2>10. 最新公告管理</h2>
+    <label>標題</label>
     <input type="text" id="annTitle" placeholder="輸入公告標題" />
+    <label>編輯者</label>
+    <input type="text" id="annEditor" placeholder="預設為管理員" value="管理員" />
+    <label>類型</label>
+    <select id="annType">
+      <option>- 選擇 -</option>
+      <option value="活動">活動</option>
+      <option value="更新">更新</option>
+      <option value="系統公告">系統公告</option>
+    </select>
+    <label>插圖</label>
+    <input type="file" id="annImage" />
+    <label>公告封面</label>
+    <textarea id="annCover" placeholder="輸入簡短封面內容"></textarea>
+    <label>公告內文</label>
+    <textarea id="annContent"></textarea>
+    <script>CKEDITOR.replace('annContent');</script>
+    <label>日期</label>
     <input type="date" id="annDate" />
-    <textarea id="annContent" placeholder="輸入公告內文"></textarea>
     <button onclick="addAnnouncement()">新增公告</button>
     <table>
       <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
@@ -175,32 +156,20 @@
     const { createClient } = supabase;
     const supabaseClient = createClient(
       'https://zkwxsbgfebrjzvaxxkez.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
+      'public-anon-key'
     );
-
-    function insertColor(color) {
-      const textarea = document.getElementById('marqueeInput');
-      textarea.value += `<span style='color:${color}'>文字</span>`;
-    }
-
-    function insertIcon() {
-      const textarea = document.getElementById('marqueeInput');
-      textarea.value += '⭐';
-    }
 
     function addMarqueeItem() {
       const index = document.querySelectorAll('.marquee-item').length + 1;
       const div = document.createElement('div');
       div.className = 'marquee-item';
-      div.innerHTML = `<label>${index}. 標題:</label><input id='title${index}'><label>連結:</label><input id='link${index}'>`;
+      div.innerHTML = \`<label>\${index}. 標題:</label><input id='title\${index}'><label>連結:</label><input id='link\${index}'>\`;
       document.getElementById('marqueeList').appendChild(div);
     }
 
-    addMarqueeItem();
-
     async function saveSettings() {
       const logo = document.getElementById('logoInput').value;
-      const marquee = document.getElementById('marqueeInput')?.value || '';
+      const marquee = CKEDITOR.instances.marqueeInput.getData();
       const download = document.getElementById('downloadInput').value;
       const recharge = document.getElementById('rechargeInput').value;
       const donate = document.getElementById('donateInput').value;
@@ -216,7 +185,7 @@
         const title = item.querySelector(`#title${i + 1}`)?.value || '';
         const link = item.querySelector(`#link${i + 1}`)?.value || '';
         if (title && link) {
-          combined += ` <a href='${link}' target='_blank'><span style='color:yellow;'>${title}</span></a>`;
+          combined += \` <a href='\${link}' target='_blank'><span style='color:yellow;'>\${title}</span></a>\`;
         }
       });
 
@@ -227,18 +196,42 @@
       alert(error ? '儲存失敗' : '儲存成功');
     }
 
+    async function addAnnouncement() {
+      const title = document.getElementById('annTitle').value;
+      const editor = document.getElementById('annEditor').value;
+      const type = document.getElementById('annType').value;
+      const cover = document.getElementById('annCover').value;
+      const content = CKEDITOR.instances.annContent.getData();
+      const date = document.getElementById('annDate').value;
+      const imageFile = document.getElementById('annImage').files[0];
+      let imageUrl = '';
+
+      if (!title || !content || !date) return alert('請完整輸入公告資訊');
+
+      if (imageFile) {
+        const { data } = await supabaseClient.storage.from('announcement-images')
+          .upload(`ann-${Date.now()}.jpg`, imageFile, {
+            cacheControl: '3600', upsert: false
+          });
+        if (data) imageUrl = \`https://zkwxsbgfebrjzvaxxkez.supabase.co/storage/v1/object/public/announcement-images/\${data.path}\`;
+      }
+
+      await supabaseClient.from('announcement').insert([{ title, editor, type, cover, content, date, image: imageUrl }]);
+      loadAnnouncements();
+    }
+
     async function loadAnnouncements() {
       const { data } = await supabaseClient.from('announcement').select('*').order('date', { ascending: false });
       const tbody = document.getElementById('annBody');
       tbody.innerHTML = '';
-      data.forEach((item, i) => {
+      data.forEach((item) => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
-          <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
-          <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
-          <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
-        `;
+        tr.innerHTML = \`
+          <td><input value="\${item.title}" onchange="updateField(\${item.id}, 'title', this.value)"></td>
+          <td><textarea onchange="updateField(\${item.id}, 'content', this.value)">\${item.content}</textarea></td>
+          <td><input type="date" value="\${item.date}" onchange="updateField(\${item.id}, 'date', this.value)"></td>
+          <td><button onclick="deleteAnnouncement(\${item.id})">刪除</button></td>
+        \`;
         tbody.appendChild(tr);
       });
     }
@@ -253,21 +246,13 @@
       loadAnnouncements();
     }
 
-    async function addAnnouncement() {
-      const title = document.getElementById('annTitle').value;
-      const content = document.getElementById('annContent').value;
-      const date = document.getElementById('annDate').value;
-      if (!title || !content || !date) return alert('請完整輸入公告資訊');
-      await supabaseClient.from('announcement').insert([{ title, content, date }]);
-      loadAnnouncements();
-    }
-
     function logout() {
       alert('已登出');
       location.href = '/';
     }
 
     loadAnnouncements();
+    addMarqueeItem();
   </script>
 </body>
 </html>
