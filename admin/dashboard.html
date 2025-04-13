@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>官網後台管理</title>
+  <style>
+    body { background: #1b1b1b; color: white; font-family: sans-serif; padding: 30px; }
+    h2 { border-bottom: 1px solid #444; padding-bottom: 5px; }
+    label { display: block; margin-top: 15px; }
+    input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 4px; border: none; background: #333; color: white; }
+    button { margin-top: 20px; padding: 10px 20px; background: #008cff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #0073cc; }
+  </style>
+</head>
+<body>
+  <h2>Kingdom Ran 後台管理</h2>
+
+  <label>跑馬燈文字</label>
+  <input type="text" id="marquee" value="挑戰你的極限，重返榮耀之路">
+
+  <label>精選影片網址（Facebook）</label>
+  <input type="text" id="video" value="https://www.facebook.com/kingdomran2025/videos/518368071329970">
+
+  <label>公告內容</label>
+  <textarea id="news" rows="5">目前維護中，敬請期待！</textarea>
+
+  <button onclick="save()">儲存更新</button>
+  <p id="status"></p>
+
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'yes') {
+      window.location.href = 'login.html';
+    }
+
+    function save() {
+      const data = {
+        marquee: document.getElementById('marquee').value,
+        video: document.getElementById('video').value,
+        news: document.getElementById('news').value
+      };
+      localStorage.setItem('siteData', JSON.stringify(data));
+      document.getElementById('status').innerText = '已儲存（模擬儲存於 localStorage）';
+    }
+  </script>
+</body>
+</html>
