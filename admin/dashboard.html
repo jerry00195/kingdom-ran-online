@@ -159,7 +159,29 @@
       'public-anon-key'
     );
 
-    function addMarqueeItem() {
+    
+function addMarqueeItem() {
+  const index = document.querySelectorAll('.marquee-item').length + 1;
+  const div = document.createElement('div');
+  div.className = 'marquee-item';
+  div.innerHTML = `
+    <label class="marquee-label">${index}. 標題:</label>
+    <input class='marquee-title'>
+    <label>連結:</label>
+    <input class='marquee-link'>
+    <button onclick="this.parentNode.remove(); reorderMarqueeItems()">刪除</button>
+  `;
+  document.getElementById('marqueeList').appendChild(div);
+}
+
+function reorderMarqueeItems() {
+  const items = document.querySelectorAll('.marquee-item');
+  items.forEach((item, i) => {
+    const label = item.querySelector('.marquee-label');
+    if (label) label.textContent = \`\${i + 1}. 標題:\`;
+  });
+}
+
       const index = document.querySelectorAll('.marquee-item').length + 1;
       const div = document.createElement('div');
       div.className = 'marquee-item';
@@ -182,8 +204,8 @@
       let combined = marquee;
       const items = document.querySelectorAll('.marquee-item');
       items.forEach((item, i) => {
-        const title = item.querySelector(`#title${i + 1}`)?.value || '';
-        const link = item.querySelector(`#link${i + 1}`)?.value || '';
+        const title = item.querySelector('.marquee-title')?.value || '';
+        const link = item.querySelector('.marquee-link')?.value || '';
         if (title && link) {
           combined += \` <a href='\${link}' target='_blank'><span style='color:yellow;'>\${title}</span></a>\`;
         }
@@ -252,7 +274,11 @@
     }
 
     loadAnnouncements();
-    addMarqueeItem();
+    
+window.addEventListener("DOMContentLoaded", () => {
+  addMarqueeItem();
+});
+
   </script>
 </body>
 </html>
