@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=1000" name="viewport"/>
-<title>Kingdom Ran Online</title>
-<link href="LOGO.png" rel="icon"/>
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('normal.cur'), auto; }
+  <meta charset="UTF-8" />
+  <title>Kingdom Ran 官網</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <style>
     body {
-      background: #000 url('222_compressed.png') no-repeat center top;
+      background: url('222_compressed.png') no-repeat center top #000;
       background-size: cover;
+      color: #fff;
       font-family: Arial, sans-serif;
-      color: white;
-      position: relative;
+      margin: 0;
+      padding: 0;
     }
-    .header {
+    header {
       text-align: center;
-      padding-top: 30px;
+      padding: 30px 0 10px;
     }
-    .logo-effect {
-      width: 420px;
+    #logo {
+      max-height: 220px;
       animation: glow 2s ease-in-out infinite alternate;
     }
     @keyframes glow {
@@ -28,197 +26,171 @@
       50% { filter: drop-shadow(0 0 18px #00ffcc); }
       100% { filter: drop-shadow(0 0 6px #00ffff); }
     }
-    .slogan {
-      font-size: 22px;
-      color: #ffcc00;
+    marquee {
+      color: #000;
       font-weight: bold;
-      text-shadow: 0 0 4px #ff0000, 0 0 10px #ffaa33;
-      margin-top: 10px;
-    }
-    .marquee {
-      background: url('https://rossoran.com/images/scroll_bg.png') repeat-x;
       padding: 6px 12px;
+      background: url('https://rossoran.com/images/scroll_bg.png') repeat-x;
+      width: 1000px;
+      margin: 0 auto;
       border: 1px solid #ff4444;
-      color: #000000;
-      font-weight: bold;
-      font-size: 14px;
-      width: 1000px;
-      margin: 10px auto 0 auto;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .marquee span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 15s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-100%, 0); }
-    }
-    .container {
-      display: flex;
-      width: 1000px;
-      margin: auto;
-      gap: 20px;
-    }
-    .left, .right { width: 200px; }
-    .center { width: 600px; margin: 0 0; }
-    .nav-button {
       display: block;
-      height: 40px;
-      line-height: 40px;
-      background: url('https://rossoran.com/images/menu_bt.jpg') no-repeat center top;
-      background-size: contain;
-      color: #ffcc00;
       text-align: center;
-      font-weight: bold;
-      text-decoration: none;
-      margin-bottom: 6px;
-      font-size: 14px;
     }
-    .nav-button:hover { background-position: center bottom; }
-    .panel {
-      background: #1a1a1a;
-      border: 2px solid #ffcc00;
-      box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 15px;
+    section {
+      padding: 20px;
     }
-    .title {
-      color: #ffcc00;
-      font-size: 15px;
-      border-bottom: 1px solid #ffcc00;
-      padding-bottom: 6px;
+    .announcement {
+      border: 1px solid #444;
+      padding: 10px;
       margin-bottom: 10px;
+      background: #111;
     }
-    .ann-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
+    .announcement h3 {
+      color: #ffcc00;
+      margin: 0 0 5px;
     }
-    .ann-table td {
-      padding: 8px 6px;
-      border-bottom: 1px solid #444;
-    }
-    .ann-table tr:nth-child(odd) {
-      background: #2a2a2a;
-    }
-    .ann-table tr:nth-child(even) {
-      background: #1a1a1a;
-    }
-    .ann-title {
-      text-align: left;
-      color: #ffaa33;
-    }
-    .ann-date {
-      text-align: right;
-      color: #ccc;
-    }
-    footer {
-      text-align: center;
-      color: #999;
+    .announcement time {
       font-size: 12px;
-      margin: 20px 0;
-      width: 1000px;
-      margin: 20px auto 0 auto;
-      clear: both;
-      display: block;
+      color: #aaa;
     }
-  
-    .top-button-wrapper {
-      width: 1000px;
-      margin: 20px auto;
+    .server-info {
+      border: 1px solid #444;
+      padding: 10px;
+      background: #111;
+      margin-top: 30px;
+    }
+    .button-area {
       text-align: center;
+      margin: 20px auto;
+      width: 1000px;
     }
-    .top-button {
+    .main-button {
       display: inline-block;
       width: 225px;
       height: 40px;
       line-height: 40px;
+      margin: 5px 10px;
       background: url('subbtn_bg.gif') no-repeat center;
       background-size: contain;
-      text-align: center;
       color: #ffcc00;
+      text-decoration: none;
       font-weight: bold;
       font-size: 16px;
-      text-decoration: none;
-      margin: 0 10px;
     }
-    .top-button:hover {
+    .main-button:hover {
       background: url('btn_rollover.gif') no-repeat center;
-      background-size: contain;
-      color: #ffffff;
+      color: #fff;
     }
-
-</style>
+    .embed-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding: 10px;
+      width: 90%;
+    }
+    .carousel iframe {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-<div class="header"><img alt="Kingdom Ran Logo" class="logo-effect" src="LOGO.png"/></div>
-<div class="marquee" style="margin-bottom: 20px;">
-<span>最新最好玩的全新伺服器，Kingdom Ran Online 即將與您見面！</span>
-</div><div class="top-button-wrapper"><div style="text-align: center; margin: 20px 0;"><img alt="遊戲下載" src="game_download_btn02_1509.png" style="display: block; margin: 0 auto; width: 460px; height: auto;"/></div></div><div style="text-align:center; margin: 20px 0;">
-<a href="https://p7ns6c1a.autoallpay.com/funpoint_index.php" target="_blank">
-<img alt="立即贊助" onmouseout="this.src='recharge_off.gif';" onmouseover="this.src='recharge_on.gif';" src="recharge_off.gif" style="width:226px;height:70px;"/>
-</a>
-</div><div class="top-button-wrapper"><a class="top-button" href="#" target="_blank">贊助方案</a><a class="top-button" href="https://www.facebook.com/kingdomran2025/" target="_blank">粉絲專頁</a><a class="top-button" href="https://www.facebook.com/groups/kingdomran2025" target="_blank">社團交流區</a><a class="top-button" href="https://m.me/586648687873912" target="_blank">聯繫客服</a></div><div class="container" style="display: flex; justify-content: center; width: 100%;"><div class="center" style="width: 800px; margin: 0 auto; text-align: center;">
-<!-- 精選影片區塊 -->
-<div class="panel">
-  <div class="title">精選影片</div>
-  <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fkingdomran2025%2Fvideos%2F518368071329970&show_text=false&autoplay=true&mute=1&width=640"
-    width="640" height="360" style="border:none;overflow:hidden;margin: 0 auto; display: block;" scrolling="no" frameborder="0"
-    allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-</div>
-<div class="panel">
-<div id="carousel" style="position: relative; width: 100%; overflow: hidden;">
-<div id="fb-carousel" style="position:relative; width:500px; height:673px; margin:0 auto; overflow:hidden;">
-<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421700843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:1;" width="500"></iframe>
-<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421490843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:0;" width="500"></iframe>
-<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="true" class="fb-frame" frameborder="0" height="673" scrolling="no" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fphoto%2F?fbid=122094421760843238&amp;set=a.122094421544843238&amp;show_text=true&amp;width=500" style="border:none;overflow:hidden;position:absolute;top:0;left:0;transition:opacity 0.6s;opacity:0;" width="500"></iframe>
-<button onclick="fbPrev()" style="position:absolute;bottom:10px;left:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">上一則</button>
-<button onclick="fbNext()" style="position:absolute;bottom:10px;right:10px;padding:6px 12px;font-size:12px;background:#ffaa33;color:black;border:none;border-radius:4px;cursor:pointer;">下一則</button>
-</div>
-<script>
-  let fbIndex = 0;
-  const fbFrames = document.querySelectorAll('.fb-frame');
-  function showFb(index) {
-    fbFrames.forEach((f, i) => {
-      f.style.opacity = (i === index) ? '1' : '0';
-    });
-  }
-  function fbNext() {
-    fbIndex = (fbIndex + 1) % fbFrames.length;
-    showFb(fbIndex);
-  }
-  function fbPrev() {
-    fbIndex = (fbIndex - 1 + fbFrames.length) % fbFrames.length;
-    showFb(fbIndex);
-  }
-  setInterval(fbNext, 6000);
-</script>
-</div>
-<script>
-          let slideIndex = 0;
-          const inner = document.getElementById('carousel-inner');
-          const total = inner.children.length;
-          function slideNext() {
-            slideIndex = (slideIndex + 1) % total;
-            inner.style.transform = `translateX(-${slideIndex * 100}%)`;
+  <header>
+    <img id="logo" src="" alt="LOGO">
+  </header>
+  <marquee id="marqueeText">載入中...</marquee>
+  <div class="button-area">
+    <a id="btn-download"><img src="game_download_btn02_1509.png" alt="客戶端下載"></a><br>
+    <a id="btn-recharge"><img src="recharge_off.gif" onmouseover="this.src='recharge_on.gif'" onmouseout="this.src='recharge_off.gif'" alt="立即充值"></a><br>
+    <a id="btn-donate" class="main-button">贊助方案</a>
+    <a id="btn-fb" class="main-button">粉絲專頁</a>
+    <a id="btn-group" class="main-button">社團交流區</a>
+    <a id="btn-contact" class="main-button">聯繫客服</a>
+  </div>
+  <div class="embed-container">
+    <iframe id="videoFrame" width="640" height="360" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    <div class="carousel" id="carousel"></div>
+  </div>
+  <section>
+    <h2 style="text-align:center;">📢 最新公告</h2>
+    <div id="announcements" style="max-width: 800px; margin: 0 auto;"></div>
+    <div class="server-info" style="max-width: 800px; margin: 30px auto;">
+      <h2 style="text-align:center;">🖥️ 伺服器資訊</h2>
+      <pre id="serverInfo" style="text-align:center;"></pre>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const { createClient } = supabase;
+    const supabaseClient = createClient(
+      'https://zkwxsbgfebrjzvaxxkez.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
+    );
+
+    async function loadSettings() {
+      const { data } = await supabaseClient.from('settings').select('*').eq('id', 1).single();
+      if (!data) return;
+      document.getElementById('logo').src = data.logo || '';
+      document.getElementById('marqueeText').innerText = data.marquee || '';
+      document.getElementById('btn-download').href = data.download || '#';
+      document.getElementById('btn-recharge').href = data.recharge || '#';
+      document.getElementById('btn-donate').href = data.donate || '#';
+      document.getElementById('btn-fb').href = data.fb || '#';
+      document.getElementById('btn-group').href = data.group || '#';
+      document.getElementById('btn-contact').href = data.contact || '#';
+      document.getElementById('videoFrame').src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(data.video)}&show_text=false&autoplay=true&mute=1&width=640`;
+      const carousel = document.getElementById('carousel');
+      if (data.image) {
+        const urls = data.image.split('\n').slice(0, 20);
+        urls.forEach(url => {
+          if (url.trim()) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(url.trim())}&show_text=false&width=500`;
+            iframe.width = "500";
+            iframe.height = "660";
+            iframe.setAttribute("scrolling", "no");
+            iframe.setAttribute("frameborder", "0");
+            iframe.setAttribute("allowfullscreen", "true");
+            carousel.appendChild(iframe);
           }
-          setInterval(slideNext, 5000);
-        </script>
-</div><div class="panel">
-<div class="title">最新公告</div>
-<table class="ann-table">
-<tr><td class="ann-title">[公告] 伺服器維護通知</td><td class="ann-date">2025/04/10</td></tr>
-<tr><td class="ann-title">[活動] 春季轉蛋機登場！</td><td class="ann-date">2025/04/08</td></tr>
-<tr><td class="ann-title">[公告] 新地圖開放「幻影森林」</td><td class="ann-date">2025/04/06</td></tr>
-</table>
-</div><div class="panel">
-<div class="title">伺服器資訊</div>
-<p>伺服器狀態：<strong style="color: #00ff00">在線</strong></p>
-<p>版本：EP7 中文版</p>
-<p>線上人數：9999</p>
-</div></div></div></body>
+        });
+      }
+      document.getElementById('bgm').src = data.bgm || '';
+    }
+
+    async function loadAnnouncements() {
+      const { data } = await supabaseClient.from('announcement').select('*').order('date', { ascending: false });
+      const container = document.getElementById('announcements');
+      container.innerHTML = '';
+      if (!data) return;
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'announcement';
+        const contentId = 'content_' + item.id;
+        div.innerHTML = `
+          <h3 style="cursor:pointer;" onclick="
+            document.querySelectorAll('[id^=content_]').forEach(e => e.style.display = 'none');
+            document.getElementById('${contentId}').style.display = 'block';">
+            ${item.title}
+          </h3>
+          <time>${item.date}</time>
+          <p id="${contentId}" style="display:none; margin-top: 8px;">${item.content}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+    loadSettings();
+    loadAnnouncements();
+  </script>
+</body>
 </html>
