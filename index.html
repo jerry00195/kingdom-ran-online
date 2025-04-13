@@ -141,7 +141,7 @@
       const { data } = await supabaseClient.from('settings').select('*').eq('id', 1).single();
       if (!data) return;
       document.getElementById('logo').src = data.logo || '';
-      document.getElementById('marqueeText').innerText = data.marquee || '';
+      document.getElementById('marqueeText').innerHTML = data.marquee || '';
       document.getElementById('btn-download').href = data.download || '#';
       document.getElementById('btn-recharge').href = data.recharge || '#';
       document.getElementById('btn-donate').href = data.donate || '#';
