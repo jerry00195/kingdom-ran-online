@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -48,6 +47,147 @@
 </head>
 <body>
 <h1>Kingdom Ran 後台管理</h1>
-<!-- 以下略，已完成內容在 Canvas 中 -->
-</body>
-</html>
+<div class="form">
+  <label>1. LOGO 圖片網址</label>
+  <input type="text" id="logo">
+
+  <label>2. 背景音樂網址</label>
+  <input type="text" id="bgm">
+
+  <label>3. 跑馬燈內容</label>
+  <input type="text" id="marquee">
+
+  <label>4. 遊戲下載網址</label>
+  <input type="text" id="download">
+
+  <label>5. 立即充值網址</label>
+  <input type="text" id="recharge">
+
+  <label>6. 贊助方案網址</label>
+  <input type="text" id="donate">
+
+  <label>7. 粉絲專頁網址</label>
+  <input type="text" id="fb">
+
+  <label>8. 社團交流區網址</label>
+  <input type="text" id="group">
+
+  <label>9. 聯繫客服網址</label>
+  <input type="text" id="contact">
+
+  <label>10. 精選影片網址</label>
+  <input type="text" id="video">
+
+  <label>11. 圖片網址（多筆換行）</label>
+  <textarea id="images"></textarea>
+
+  <label>13. 伺服器資訊（格式：第一行狀態、第二行版本）</label>
+  <textarea id="server"></textarea>
+
+  <button onclick="saveSettings()">儲存設定</button>
+</div>
+
+<h2>12. 最新公告管理</h2>
+<div class="form">
+  <input type="text" id="annTitle" placeholder="輸入公告標題">
+  <input type="date" id="annDate">
+  <textarea id="annContent" placeholder="輸入公告內文"></textarea>
+  <button onclick="addAnnouncement()">新增公告</button>
+</div>
+
+<table id="announcementTable">
+  <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<div class="logout">
+  <button onclick="alert('登出功能尚未實作')">帳號登出</button>
+</div>
+
+<script>
+  const supabase = supabase.createClient(
+    'https://yxeeyqexujlythzyeqff.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  );
+
+  async function saveSettings() {
+    const data = {
+      logo: logo.value,
+      bgm: bgm.value,
+      marquee: marquee.value,
+      download: download.value,
+      recharge: recharge.value,
+      donate: donate.value,
+      fb: fb.value,
+      group: group.value,
+      contact: contact.value,
+      video: video.value,
+      images: images.value,
+      server: server.value
+    };
+    await supabase.from('settings').upsert({ id: 1, ...data });
+    alert('設定已儲存');
+  }
+
+  async function loadSettings() {
+    const { data } = await supabase.from('settings').select('*').eq('id', 1).single();
+    if (data) {
+      logo.value = data.logo || '';
+      bgm.value = data.bgm || '';
+      marquee.value = data.marquee || '';
+      download.value = data.download || '';
+      recharge.value = data.recharge || '';
+      donate.value = data.donate || '';
+      fb.value = data.fb || '';
+      group.value = data.group || '';
+      contact.value = data.contact || '';
+      video.value = data.video || '';
+      images.value = data.images || '';
+      server.value = data.server || '';
+    }
+  }
+
+  async function loadAnnouncements() {
+    const { data } = await supabase.from('announcement').select('*').order('date', { ascending: false });
+    const tbody = document.querySelector('#announcementTable tbody');
+    tbody.innerHTML = '';
+    data.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
+        <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
+        <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
+        <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function addAnnouncement() {
+    const title = annTitle.value;
+    const content = annContent.value;
+    const date = annDate.value;
+    if (!title || !content || !date) return alert('請完整輸入公告資訊');
+    const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
+    if (error) alert('新增失敗');
+    else {
+      annTitle.value = '';
+      annContent.value = '';
+      annDate.value = '';
+      loadAnnouncements();
+    }
+  }
+
+  async function updateField(id, key, value) {
+    await supabase.from('announcement').update({ [key]: value }).eq('id', id);
+  }
+
+  async function deleteAnnouncement(id) {
+    if (!confirm('確定刪除這筆公告？')) return;
+    await supabase.from('announcement').delete().eq('id', id);
+    loadAnnouncements();
+  }
+
+  loadSettings();
+  loadAnnouncements();
+</script>
