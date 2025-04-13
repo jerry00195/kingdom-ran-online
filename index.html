@@ -141,20 +141,20 @@
       if (!data) return;
       document.getElementById('logo').src = data.logo || '';
 document.getElementById('btn-download').href = data.download || '#';
-document.getElementById('btn-recharge').href = data.recharge || data.donate || '#';
+document.getElementById('btn-recharge').href = data.recharge || data.recharge || '#';
 document.getElementById('btn-donate').href = data.sponsor || '#';
 document.getElementById('btn-fb').href = data.fb || '#';
-document.getElementById('btn-group').href = data.group || '#';
+document.getElementById('btn-group').href = data.group_link || '#';
 document.getElementById('btn-contact').href = data.support || '#';
 document.getElementById('videoFrame').src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(data.video)}&show_text=false&autoplay=true&mute=1&width=640`;
 document.getElementById('serverInfo').textContent = data.info || '';
       
       document.getElementById('btn-download').href = data.download || '#';
       document.getElementById('btn-recharge').href = data.recharge || '#';
-      document.getElementById('btn-donate').href = data.donate || '#';
+      document.getElementById('btn-donate').href = data.recharge || '#';
       document.getElementById('btn-fb').href = data.fb || '#';
-      document.getElementById('btn-group').href = data.group || '#';
-      document.getElementById('btn-contact').href = data.contact || '#';
+      document.getElementById('btn-group').href = data.group_link || '#';
+      document.getElementById('btn-contact').href = data.support || '#';
       document.getElementById('videoFrame').src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(data.video)}&show_text=false&autoplay=true&mute=1&width=640`;
       const carousel = document.getElementById('carousel');
       if (data.image) {
