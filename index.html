@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kingdom Ran 官網</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <style>
+<meta charset="utf-8"/>
+<title>Kingdom Ran 官網</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<style>
     body {
       background: url('222_compressed.png') no-repeat center top #000;
       background-size: cover;
@@ -105,32 +106,30 @@
   </style>
 </head>
 <body>
-  <header>
-    <img id="logo" src="" alt="LOGO">
-  </header>
-  <marquee id="marqueeText">載入中...</marquee>
-  <div class="button-area">
-    <a id="btn-download"><img src="game_download_btn02_1509.png" alt="客戶端下載"></a><br>
-    <a id="btn-recharge"><img src="recharge_off.gif" onmouseover="this.src='recharge_on.gif'" onmouseout="this.src='recharge_off.gif'" alt="立即充值"></a><br>
-    <a id="btn-donate" class="main-button">贊助方案</a>
-    <a id="btn-fb" class="main-button">粉絲專頁</a>
-    <a id="btn-group" class="main-button">社團交流區</a>
-    <a id="btn-contact" class="main-button">聯繫客服</a>
-  </div>
-  <div class="embed-container">
-    <iframe id="videoFrame" width="960" height="540" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-    <div class="carousel" id="carousel"></div>
-  </div>
-  <section>
-    <h2 style="text-align:center;">📢 最新公告</h2>
-    <div id="announcements" style="max-width: 800px; margin: 0 auto;"></div>
-    <div class="server-info" style="max-width: 800px; margin: 30px auto;">
-      <h2 style="text-align:center;">遊戲設定</h2>
-      <pre id="serverInfo" style="text-align:center;"></pre>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script>
+<header>
+<img alt="LOGO" id="logo" src=""/>
+</header>
+<div class="button-area">
+<a id="btn-download"><img alt="客戶端下載" src="game_download_btn02_1509.png"/></a><br/>
+<a id="btn-recharge"><img alt="立即充值" onmouseout="this.src='recharge_off.gif'" onmouseover="this.src='recharge_on.gif'" src="recharge_off.gif"/></a><br/>
+<a class="main-button" id="btn-donate">贊助方案</a>
+<a class="main-button" id="btn-fb">粉絲專頁</a>
+<a class="main-button" id="btn-group">社團交流區</a>
+<a class="main-button" id="btn-contact">聯繫客服</a>
+</div>
+<div class="embed-container">
+<iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="" height="540" id="videoFrame" width="960"></iframe>
+<div class="carousel" id="carousel"></div>
+</div>
+<section>
+<h2 style="text-align:center;">📢 最新公告</h2>
+<div class="server-info" style="max-width: 800px; margin: 30px auto;">
+<h2 style="text-align:center;">遊戲設定</h2>
+<pre id="serverInfo" style="text-align:center;"></pre>
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
     const { createClient } = supabase;
     const supabaseClient = createClient(
       'https://zkwxsbgfebrjzvaxxkez.supabase.co',
@@ -138,10 +137,18 @@
     );
 
     async function loadSettings() {
-      const { data } = await supabaseClient.from('settings').select('*').eq('id', 1).single();
+      const { data } = await supabaseClient.from('settings').select('*').eq('id', 'main').single();
       if (!data) return;
       document.getElementById('logo').src = data.logo || '';
-      document.getElementById('marqueeText').innerHTML = data.marquee || '';
+document.getElementById('btn-download').href = data.download || '#';
+document.getElementById('btn-recharge').href = data.recharge || data.donate || '#';
+document.getElementById('btn-donate').href = data.sponsor || '#';
+document.getElementById('btn-fb').href = data.fb || '#';
+document.getElementById('btn-group').href = data.group || '#';
+document.getElementById('btn-contact').href = data.support || '#';
+document.getElementById('videoFrame').src = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(data.video)}&show_text=false&autoplay=true&mute=1&width=640`;
+document.getElementById('serverInfo').textContent = data.info || '';
+      
       document.getElementById('btn-download').href = data.download || '#';
       document.getElementById('btn-recharge').href = data.recharge || '#';
       document.getElementById('btn-donate').href = data.donate || '#';
@@ -168,21 +175,7 @@
       document.getElementById('bgm').src = data.bgm || '';
     }
 
-    async function loadAnnouncements() {
-      const { data } = await supabaseClient.from('announcement').select('*').order('date', { ascending: false });
-      const container = document.getElementById('announcements');
-      container.innerHTML = '';
-      if (!data) return;
-      data.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'announcement';
-        const contentId = 'content_' + item.id;
-        div.innerHTML = `
-          <h3 style="cursor:pointer;" onclick="
-            document.querySelectorAll('[id^=content_]').forEach(e => e.style.display = 'none');
-            document.getElementById('${contentId}').style.display = 'block';">
-            ${item.title}
-          </h3>
+              </h3>
           <time>${item.date}</time>
           <p id="${contentId}" style="display:none; margin-top: 8px;">${item.content}</p>
         `;
@@ -190,7 +183,7 @@
       });
     }
     loadSettings();
-    loadAnnouncements();
+    
   </script>
 </body>
 </html>
