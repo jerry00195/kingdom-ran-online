@@ -120,6 +120,10 @@
 <iframe allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen="" height="540" id="videoFrame" width="960"></iframe>
 <div class="carousel" id="carousel"></div>
 </div>
+<section style="max-width: 700px; margin: 40px auto; background-color: #000; border: 2px solid gold; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px gold;">
+<h2 style="color: gold; font-weight: bold; text-align: center; font-size: 20px; margin-bottom: 20px;">最新公告</h2>
+<div id="announcementList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+</section>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
@@ -148,31 +152,39 @@ async function loadSettings() {
   }
 }
 window.addEventListener("DOMContentLoaded", loadSettings);
-</script><section style="padding: 40px; color: white; text-align: center;"><h2>📢 最新公告</h2><ul id="announcementList" style="list-style:none; padding:0; margin:0; text-align:center; padding:0; list-style:none;"></ul></section><section style="padding: 40px; text-align: center; color: white;"><h2>🎮 遊戲設定</h2><div id="serverInfo">載入中...</div></section><script type="module">
+</script><script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 const supabase = createClient(
   'https://zkwxsbgfebrjzvaxxkez.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
 );
 
-async function loadAnnouncements() {
-  const { data, error } = await supabase.from("announcements").select("*").order("created_at", { ascending: false }).limit(10);
-  const ul = document.getElementById("announcementList");
-  if (!ul) return;
+async function load() {
+  const { data, error } = await supabase.from("announcements").select("*").order("created_at", { descending: true }).limit(10);
+  if (error) return alert("❌ 公告載入失敗: " + error.message);
 
-  if (error) {
-    console.warn("❌ 公告讀取失敗", error.message);
-    ul.innerHTML = "<li>無法載入公告</li>";
-    return;
-  }
+  const container = document.getElementById("announcementList");
+  data.forEach(item => {
+    const card = document.createElement("div");
+    card.style = "display: flex; justify-content: space-between; align-items: center; background-color: #111; border: 1px solid gold; border-radius: 6px; padding: 12px 16px; font-size: 16px; margin-bottom: 10px;";
 
-  ul.innerHTML = data.map(item => 
-    `<li style='margin-bottom: 12px;'>
-      <a href='${item.link}' target='_blank' style='color: #4dabf7; text-decoration: none;'>🔗 ${item.title}</a>
-    </li>`
-  ).join("");
+    const title = document.createElement("a");
+    title.href = item.link;
+    title.target = "_blank";
+    title.textContent = `[${item.type || "公告"}] ${item.title}`;
+    title.style = "color: #f1c40f; font-weight: bold; text-decoration: none;";
+
+    const date = document.createElement("span");
+    const d = new Date(item.created_at);
+    const dateStr = d.toISOString().split("T")[0].replace(/-/g, "/");
+    date.textContent = dateStr;
+    date.style = "color: #bbb; font-size: 14px;";
+
+    card.appendChild(title);
+    card.appendChild(date);
+    container.appendChild(card);
+  });
 }
-
-loadAnnouncements();
+load();
 </script></body>
 </html>
