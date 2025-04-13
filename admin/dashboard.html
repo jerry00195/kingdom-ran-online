@@ -163,5 +163,19 @@
       loadAnnouncements();
     });
   </script>
+<marquee id="marqueeText" behavior="scroll" direction="left" style="color: #ffcc00; font-weight: bold; margin-top: 30px; display:block; text-align:center;">載入中...</marquee>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const supabase = window.supabase.createClient(
+      'https://zkwxsbgfebrjzvaxxkez.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
+    );
+    const { data } = await supabase.from('settings').select('marquee').eq('id', 1).single();
+    if (data && data.marquee) {
+      document.getElementById('marqueeText').innerText = data.marquee;
+    }
+  });
+</script>
 </body>
 </html>
