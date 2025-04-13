@@ -2,27 +2,24 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>Kingdom Ran 後台管理</title>
+  <title>Kingdom Ran 官網後台管理</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     body {
-      background: #000;
-      color: #ffffcc;
+      background: #111;
+      color: #fff;
       font-family: Arial, sans-serif;
       padding: 20px;
     }
     h1, h2 { color: #ffcc00; }
     .form { margin-bottom: 30px; }
-    label { display: block; margin-top: 10px; color: #ffffcc; }
+    label { display: block; margin-top: 10px; }
     input, textarea, button {
       padding: 8px;
       margin-top: 5px;
       font-size: 14px;
       width: 100%;
       box-sizing: border-box;
-      background: #222;
-      color: #ffffcc;
-      border: 1px solid #444;
     }
     textarea { height: 80px; }
     table {
@@ -31,178 +28,140 @@
       border: 1px solid #444; padding: 10px; }
     th {
       background: #222; color: #ffcc00; }
-    .logout {
-      margin-top: 40px; text-align: right;
-    }
-    button {
-      background-color: #333;
-      color: #ffffcc;
-      border: 1px solid #777;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #555;
-    }
+    #imagePreview { margin-top: 10px; max-width: 300px; display: block; }
+    .action-btn { margin-right: 5px; }
   </style>
 </head>
 <body>
-<h1>Kingdom Ran 後台管理</h1>
-<div class="form">
-  <label>1. LOGO 圖片網址</label>
-  <input type="text" id="logo">
+  <h1>Kingdom Ran 後台管理</h1>
+  <div class="form">
+    <label>1. LOGO 圖片網址</label>
+    <input type="text" id="logo">
 
-  <label>2. 背景音樂網址</label>
-  <input type="text" id="bgm">
+    <label>2. 背景音樂網址</label>
+    <input type="text" id="bgm">
 
-  <label>3. 跑馬燈內容</label>
-  <input type="text" id="marquee">
+    <label>3. 跑馬燈內容</label>
+    <input type="text" id="marquee">
 
-  <label>4. 遊戲下載網址</label>
-  <input type="text" id="download">
+    <label>4. 遊戲下載網址</label>
+    <input type="text" id="download">
 
-  <label>5. 立即充值網址</label>
-  <input type="text" id="recharge">
+    <label>5. 立即充值網址</label>
+    <input type="text" id="recharge">
 
-  <label>6. 贊助方案網址</label>
-  <input type="text" id="donate">
+    <label>6. 贊助方案網址</label>
+    <input type="text" id="donate">
 
-  <label>7. 粉絲專頁網址</label>
-  <input type="text" id="fb">
+    <label>7. 粉絲專頁網址</label>
+    <input type="text" id="fb">
 
-  <label>8. 社團交流區網址</label>
-  <input type="text" id="group">
+    <label>8. 社團交流區網址</label>
+    <input type="text" id="group">
 
-  <label>9. 聯繫客服網址</label>
-  <input type="text" id="contact">
+    <label>9. 聯繫客服網址</label>
+    <input type="text" id="contact">
 
-  <label>10. 精選影片網址</label>
-  <input type="text" id="video">
+    <label>10. 精選影片網址</label>
+    <input type="text" id="video">
 
-  <label>11. 圖片網址（最多 20 筆，每行一筆）</label>
-  <textarea id="images" maxlength="5000" placeholder="請輸入每行一筆圖片網址，最多 20 行"></textarea>
-  <small style="color:#999;">※ 超過 20 行將僅儲存前 20 行，建議勿輸入過長網址。</small>
+    <label>11. 首頁圖片網址</label>
+    <input type="text" id="image">
+    <div>預覽：</div>
+    <img id="imagePreview" src="" alt="預覽圖">
 
-  <label>13. 伺服器資訊（格式：第一行狀態、第二行版本）</label>
-  <textarea id="server"></textarea>
+    <label>13. 伺服器資訊（狀態與版本）</label>
+    <textarea id="server"></textarea>
 
-  <button onclick="saveSettings()">儲存設定</button>
-</div>
+    <button onclick="saveSettings()">儲存所有設定</button>
+  </div>
 
-<h2>12. 最新公告管理</h2>
-<div class="form">
-  <input type="text" id="annTitle" placeholder="輸入公告標題">
-  <input type="date" id="annDate">
-  <textarea id="annContent" placeholder="輸入公告內文"></textarea>
-  <button onclick="addAnnouncement()">新增公告</button>
-</div>
+  <h2>12. 最新公告管理</h2>
+  <div class="form">
+    <input type="text" id="annTitle" placeholder="輸入公告標題">
+    <input type="date" id="annDate">
+    <textarea id="annContent" placeholder="輸入公告內文"></textarea>
+    <button onclick="addAnnouncement()">新增公告</button>
+  </div>
 
-<table id="announcementTable">
-  <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
-  <tbody></tbody>
-</table>
+  <table id="announcementTable">
+    <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
+    <tbody id="announcementBody"></tbody>
+  </table>
 
-<div class="logout">
-  <button onclick="alert('登出功能尚未實作')">帳號登出</button>
-</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const SUPABASE_URL = 'https://zkwxsbgfebrjzvaxxkez.supabase.co';
+      const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI';
+      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const supabase = window.supabase.createClient(
-      'https://yxeeyqexujlythzyeqff.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-    );
-
-    window.supabaseClient = supabase;
-
-    async function saveSettings() {
-      const data = {
-        id: 1,
-        logo: logo.value,
-        bgm: bgm.value,
-        marquee: marquee.value,
-        download: download.value,
-        recharge: recharge.value,
-        donate: donate.value,
-        fb: fb.value,
-        group: group.value,
-        contact: contact.value,
-        video: video.value,
-        images: images.value.split('\n').slice(0, 20).join('\n'),
-        server: server.value
-      };
-      const { error } = await supabase.from('settings').upsert(data, { onConflict: 'id' });
-      if (error) alert('儲存失敗：' + error.message);
-      else alert('設定已儲存');
-    }
-
-    async function loadSettings() {
-      const { data } = await supabase.from('settings').select('*').eq('id', 1).single();
-      if (data) {
-        logo.value = data.logo || '';
-        bgm.value = data.bgm || '';
-        marquee.value = data.marquee || '';
-        download.value = data.download || '';
-        recharge.value = data.recharge || '';
-        donate.value = data.donate || '';
-        fb.value = data.fb || '';
-        group.value = data.group || '';
-        contact.value = data.contact || '';
-        video.value = data.video || '';
-        images.value = (data.images || '').split('\n').slice(0, 20).join('\n');
-        server.value = data.server || '';
-      }
-    }
-
-    async function loadAnnouncements() {
-      const { data } = await supabase.from('announcement').select('*').order('date', { ascending: false });
-      const tbody = document.querySelector('#announcementTable tbody');
-      tbody.innerHTML = '';
-      data.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
-          <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
-          <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
-          <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
-        `;
-        tbody.appendChild(tr);
+      const imageInput = document.getElementById('image');
+      imageInput.addEventListener('input', () => {
+        document.getElementById('imagePreview').src = imageInput.value;
       });
-    }
 
-    async function addAnnouncement() {
-      const title = annTitle.value;
-      const content = annContent.value;
-      const date = annDate.value;
-      if (!title || !content || !date) return alert('請完整輸入公告資訊');
-      const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
-      if (error) alert('新增失敗');
-      else {
-        annTitle.value = '';
-        annContent.value = '';
-        annDate.value = '';
-        loadAnnouncements();
-      }
-    }
+      window.saveSettings = async function () {
+        const data = {
+          logo: logo.value,
+          bgm: bgm.value,
+          marquee: marquee.value,
+          download: download.value,
+          recharge: recharge.value,
+          donate: donate.value,
+          fb: fb.value,
+          group: group.value,
+          contact: contact.value,
+          video: video.value,
+          image: image.value,
+          server: server.value,
+          id: 1
+        };
+        const { error } = await supabase.from('settings').upsert([data], { onConflict: ['id'] });
+        alert(error ? '儲存失敗' : '設定已儲存');
+      };
 
-    async function updateField(id, key, value) {
-      await supabase.from('announcement').update({ [key]: value }).eq('id', id);
-    }
+      window.loadAnnouncements = async function () {
+        const { data, error } = await supabase.from('announcement').select('*').order('date', { ascending: false });
+        const tbody = document.getElementById('announcementBody');
+        tbody.innerHTML = '';
+        if (data) data.forEach((item) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
+            <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
+            <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
+            <td>
+              <button onclick="deleteAnnouncement(${item.id})">刪除</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      };
 
-    async function deleteAnnouncement(id) {
-      if (!confirm('確定刪除這筆公告？')) return;
-      await supabase.from('announcement').delete().eq('id', id);
+      window.updateField = async function (id, key, value) {
+        const { error } = await supabase.from('announcement').update({ [key]: value }).eq('id', id);
+        if (error) alert('更新失敗');
+      };
+
+      window.deleteAnnouncement = async function (id) {
+        if (!confirm('確定要刪除這則公告嗎？')) return;
+        const { error } = await supabase.from('announcement').delete().eq('id', id);
+        if (error) alert('刪除失敗');
+        else loadAnnouncements();
+      };
+
+      window.addAnnouncement = async function () {
+        const title = annTitle.value;
+        const content = annContent.value;
+        const date = annDate.value;
+        if (!title || !content || !date) return alert('請完整輸入公告資訊');
+        const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
+        alert(error ? '新增失敗' : '公告已新增');
+        if (!error) loadAnnouncements();
+      };
+
       loadAnnouncements();
-    }
-
-    // expose for button binding
-    window.saveSettings = saveSettings;
-    window.addAnnouncement = addAnnouncement;
-    window.updateField = updateField;
-    window.deleteAnnouncement = deleteAnnouncement;
-
-    loadSettings();
-    loadAnnouncements();
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
