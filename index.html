@@ -148,5 +148,31 @@ async function loadSettings() {
   }
 }
 window.addEventListener("DOMContentLoaded", loadSettings);
-</script><section style="padding: 40px; text-align: center; color: white;"><h2>🎮 遊戲設定</h2><div id="serverInfo">載入中...</div></section></body>
+</script><section style="padding: 40px; color: white; text-align: center;"><h2>📢 最新公告</h2><ul id="announcementList" style="list-style:none; padding:0; margin:0; text-align:center; padding:0; list-style:none;"></ul></section><section style="padding: 40px; text-align: center; color: white;"><h2>🎮 遊戲設定</h2><div id="serverInfo">載入中...</div></section><script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const supabase = createClient(
+  'https://zkwxsbgfebrjzvaxxkez.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'
+);
+
+async function loadAnnouncements() {
+  const { data, error } = await supabase.from("announcements").select("*").order("created_at", { ascending: false }).limit(10);
+  const ul = document.getElementById("announcementList");
+  if (!ul) return;
+
+  if (error) {
+    console.warn("❌ 公告讀取失敗", error.message);
+    ul.innerHTML = "<li>無法載入公告</li>";
+    return;
+  }
+
+  ul.innerHTML = data.map(item => 
+    `<li style='margin-bottom: 12px;'>
+      <a href='${item.link}' target='_blank' style='color: #4dabf7; text-decoration: none;'>🔗 ${item.title}</a>
+    </li>`
+  ).join("");
+}
+
+loadAnnouncements();
+</script></body>
 </html>
