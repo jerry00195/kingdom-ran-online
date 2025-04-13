@@ -79,8 +79,8 @@
   <input type="text" id="video">
 
   <label>11. 圖片網址（最多 20 筆，每行一筆）</label>
-<textarea id="images" maxlength="5000" placeholder="請輸入每行一筆圖片網址，最多 20 行"></textarea>
-<small style="color:#999;">※ 超過 20 行將僅儲存前 20 行，建議勿輸入過長網址。</small>
+  <textarea id="images" maxlength="5000" placeholder="請輸入每行一筆圖片網址，最多 20 行"></textarea>
+  <small style="color:#999;">※ 超過 20 行將僅儲存前 20 行，建議勿輸入過長網址。</small>
 
   <label>13. 伺服器資訊（格式：第一行狀態、第二行版本）</label>
   <textarea id="server"></textarea>
@@ -106,89 +106,103 @@
 </div>
 
 <script>
-  const supabase = supabase.createClient(
-    'https://yxeeyqexujlythzyeqff.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
-  );
+  window.addEventListener('DOMContentLoaded', () => {
+    const supabase = window.supabase.createClient(
+      'https://yxeeyqexujlythzyeqff.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+    );
 
-  async function saveSettings() {
-    const data = {
-      logo: logo.value,
-      bgm: bgm.value,
-      marquee: marquee.value,
-      download: download.value,
-      recharge: recharge.value,
-      donate: donate.value,
-      fb: fb.value,
-      group: group.value,
-      contact: contact.value,
-      video: video.value,
-      images: images.value.split('\n').slice(0, 20).join('\n'),
-      server: server.value
-    };
-    await supabase.from('settings').upsert({ id: 1, ...data });
-    alert('設定已儲存');
-  }
+    window.supabaseClient = supabase;
 
-  async function loadSettings() {
-    const { data } = await supabase.from('settings').select('*').eq('id', 1).single();
-    if (data) {
-      logo.value = data.logo || '';
-      bgm.value = data.bgm || '';
-      marquee.value = data.marquee || '';
-      download.value = data.download || '';
-      recharge.value = data.recharge || '';
-      donate.value = data.donate || '';
-      fb.value = data.fb || '';
-      group.value = data.group || '';
-      contact.value = data.contact || '';
-      video.value = data.video || '';
-      images.value = (data.images || '').split('\n').slice(0, 20).join('\n');
-      server.value = data.server || '';
+    async function saveSettings() {
+      const data = {
+        id: 1,
+        logo: logo.value,
+        bgm: bgm.value,
+        marquee: marquee.value,
+        download: download.value,
+        recharge: recharge.value,
+        donate: donate.value,
+        fb: fb.value,
+        group: group.value,
+        contact: contact.value,
+        video: video.value,
+        images: images.value.split('\n').slice(0, 20).join('\n'),
+        server: server.value
+      };
+      const { error } = await supabase.from('settings').upsert(data, { onConflict: 'id' });
+      if (error) alert('儲存失敗：' + error.message);
+      else alert('設定已儲存');
     }
-  }
 
-  async function loadAnnouncements() {
-    const { data } = await supabase.from('announcement').select('*').order('date', { ascending: false });
-    const tbody = document.querySelector('#announcementTable tbody');
-    tbody.innerHTML = '';
-    data.forEach(item => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
-        <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
-        <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
-        <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
+    async function loadSettings() {
+      const { data } = await supabase.from('settings').select('*').eq('id', 1).single();
+      if (data) {
+        logo.value = data.logo || '';
+        bgm.value = data.bgm || '';
+        marquee.value = data.marquee || '';
+        download.value = data.download || '';
+        recharge.value = data.recharge || '';
+        donate.value = data.donate || '';
+        fb.value = data.fb || '';
+        group.value = data.group || '';
+        contact.value = data.contact || '';
+        video.value = data.video || '';
+        images.value = (data.images || '').split('\n').slice(0, 20).join('\n');
+        server.value = data.server || '';
+      }
+    }
 
-  async function addAnnouncement() {
-    const title = annTitle.value;
-    const content = annContent.value;
-    const date = annDate.value;
-    if (!title || !content || !date) return alert('請完整輸入公告資訊');
-    const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
-    if (error) alert('新增失敗');
-    else {
-      annTitle.value = '';
-      annContent.value = '';
-      annDate.value = '';
+    async function loadAnnouncements() {
+      const { data } = await supabase.from('announcement').select('*').order('date', { ascending: false });
+      const tbody = document.querySelector('#announcementTable tbody');
+      tbody.innerHTML = '';
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input value="${item.title}" onchange="updateField(${item.id}, 'title', this.value)"></td>
+          <td><textarea onchange="updateField(${item.id}, 'content', this.value)">${item.content}</textarea></td>
+          <td><input type="date" value="${item.date}" onchange="updateField(${item.id}, 'date', this.value)"></td>
+          <td><button onclick="deleteAnnouncement(${item.id})">刪除</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function addAnnouncement() {
+      const title = annTitle.value;
+      const content = annContent.value;
+      const date = annDate.value;
+      if (!title || !content || !date) return alert('請完整輸入公告資訊');
+      const { error } = await supabase.from('announcement').insert([{ title, content, date }]);
+      if (error) alert('新增失敗');
+      else {
+        annTitle.value = '';
+        annContent.value = '';
+        annDate.value = '';
+        loadAnnouncements();
+      }
+    }
+
+    async function updateField(id, key, value) {
+      await supabase.from('announcement').update({ [key]: value }).eq('id', id);
+    }
+
+    async function deleteAnnouncement(id) {
+      if (!confirm('確定刪除這筆公告？')) return;
+      await supabase.from('announcement').delete().eq('id', id);
       loadAnnouncements();
     }
-  }
 
-  async function updateField(id, key, value) {
-    await supabase.from('announcement').update({ [key]: value }).eq('id', id);
-  }
+    // expose for button binding
+    window.saveSettings = saveSettings;
+    window.addAnnouncement = addAnnouncement;
+    window.updateField = updateField;
+    window.deleteAnnouncement = deleteAnnouncement;
 
-  async function deleteAnnouncement(id) {
-    if (!confirm('確定刪除這筆公告？')) return;
-    await supabase.from('announcement').delete().eq('id', id);
+    loadSettings();
     loadAnnouncements();
-  }
-
-  loadSettings();
-  loadAnnouncements();
+  });
 </script>
+</body>
+</html>
