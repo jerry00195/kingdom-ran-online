@@ -1,284 +1,246 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kingdom Ran 後台管理</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+  <meta charset="UTF-8">
+  <title>Kingdom Ran 後台（SunEditor 版）</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/suneditor/dist/css/suneditor.min.css">
   <style>
     body {
-      background: #111;
-      color: #fff;
-      font-family: "Microsoft JhengHei", sans-serif;
+      background: #121212;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px;
+    }
+    h1 {
+      color: #4dabf7;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 30px;
+      border-bottom: 2px solid #444;
+      padding-bottom: 5px;
+      color: #81d4fa;
+    }
+    .form-section {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 8px;
       padding: 20px;
-      line-height: 1.6;
+      margin-bottom: 30px;
     }
-    h1, h2, label {
-      color: #ffd700;
-    }
-    h1 { font-size: 28px; margin-bottom: 20px; }
-    h2 { margin-top: 30px; font-size: 22px; }
     label {
       font-weight: bold;
       display: block;
-      margin-top: 12px;
+      margin-top: 10px;
+      color: #ccc;
     }
-    input, textarea, button, select {
-      display: block;
-      margin-top: 6px;
-      margin-bottom: 12px;
+    input, textarea, select {
       width: 100%;
       padding: 10px;
-      font-size: 15px;
-      border-radius: 4px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 6px;
       border: 1px solid #555;
-      background: #1c1c1c;
+      background: #2c2c2c;
       color: #fff;
+      box-sizing: border-box;
     }
-    textarea {
-      min-height: 80px;
-    }
-    .form-section {
-      margin-bottom: 40px;
-      padding: 15px;
-      border: 1px solid #333;
-      border-radius: 5px;
-      background: #1a1a1a;
-    }
-    .logout-btn {
-      background: #333;
-      color: yellow;
-      border: none;
-      padding: 12px 18px;
-      font-size: 15px;
-      cursor: pointer;
-      border-radius: 4px;
-      margin-top: 40px;
-    }
-    table {
-      width: 100%;
-      margin-top: 20px;
-      color: #fff;
-      border-collapse: collapse;
-    }
-    table th, table td {
+    .marquee-item {
       border: 1px solid #444;
+      background: #202020;
       padding: 10px;
-      text-align: left;
+      margin-bottom: 10px;
+      border-radius: 6px;
     }
-    table th {
-      background-color: #222;
-      color: #ffcc00;
+    .marquee-item button {
+      background: #d32f2f;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
     }
     button {
-      background: #444;
-      color: #fff;
+      background: #1976d2;
+      color: white;
       border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 6px;
       cursor: pointer;
+      margin-right: 10px;
+      margin-top: 10px;
     }
-    button:hover {
-      background: #666;
+    button.logout {
+      background: #555;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <h1>Kingdom Ran 後台管理</h1>
+  <h1>Kingdom Ran 後台管理（SunEditor 編輯器）</h1>
 
   <div class="form-section">
-    <label>1. LOGO 圖片網址</label>
-    <input type="text" id="logoInput" placeholder="請輸入 LOGO 圖片 URL" />
+    <h2>基本設定</h2>
+    <label>LOGO 圖片網址</label>
+    <input type="text">
+    <label>遊戲下載網址</label>
+    <input type="text">
+    <label>立即儲值網址</label>
+    <input type="text">
+    <label>贊助方案網址</label>
+    <input type="text">
+    <label>粉絲專頁網址</label>
+    <input type="text">
+    <label>社團網址</label>
+    <input type="text">
+    <label>聯繫客服網址</label>
+    <input type="text">
+    <label>影片網址</label>
+    <input type="text">
+    <label>伺服器資訊</label>
+    <textarea></textarea>
   </div>
 
-  <div class="form-section">
-    <label>2. 跑馬燈內容</label>
-    <label>跑馬燈標題（支援樣式編輯）</label>
-    <textarea id="marqueeInput"></textarea>
-    <script>CKEDITOR.replace('marqueeInput');</script>
-
-    <label>跑馬燈項目</label>
-    <div id="marqueeList"></div>
+  <div class="form-section" id="marqueeSection">
+    <h2>跑馬燈</h2>
+    <label>跑馬燈標題</label>
+    <textarea id="marqueeTitle"></textarea>
+    <div class="marquee-item">
+      <button onclick="deleteMarqueeItem(this)">🗑️ 刪除</button>
+      <label>1. 標題</label>
+      <input type="text">
+      <label>連結</label>
+      <input type="text">
+    </div>
     <button onclick="addMarqueeItem()">＋ 新增跑馬燈項目</button>
   </div>
 
   <div class="form-section">
-    <label>3. 遊戲下載網址</label>
-    <input type="text" id="downloadInput" />
-    <label>4. 立即充值網址</label>
-    <input type="text" id="rechargeInput" />
-    <label>5. 贊助方案網址</label>
-    <input type="text" id="donateInput" />
-    <label>6. 粉絲專頁網址</label>
-    <input type="text" id="fbInput" />
-    <label>7. 社團交流區網址</label>
-    <input type="text" id="groupInput" />
-    <label>8. 聯繫客服網址</label>
-    <input type="text" id="contactInput" />
-    <label>9. 影片網址</label>
-    <input type="text" id="videoInput" />
-    <label>11. 伺服器資訊</label>
-    <textarea id="serverInput" placeholder="版本與伺服器狀態"></textarea>
-  </div>
-
-  <button onclick="saveSettings()">儲存所有設定</button>
-
-  <div class="form-section">
-    <h2>10. 最新公告管理</h2>
-    <label>標題</label>
-    <input type="text" id="annTitle" placeholder="輸入公告標題" />
-    <label>編輯者</label>
-    <input type="text" id="annEditor" placeholder="預設為管理員" value="管理員" />
-    <label>類型</label>
-    <select id="annType">
-      <option>- 選擇 -</option>
+    <h2>公告管理</h2>
+    <label>公告標題</label>
+    <input type="text">
+    <label>公告編輯者</label>
+    <input type="text">
+    <label>公告類型</label>
+    <select>
+      <option value="">請選擇</option>
       <option value="活動">活動</option>
       <option value="更新">更新</option>
       <option value="系統公告">系統公告</option>
     </select>
-    <label>插圖</label>
-    <input type="file" id="annImage" />
-    <label>公告封面</label>
-    <textarea id="annCover" placeholder="輸入簡短封面內容"></textarea>
+    <label>公告封面簡述</label>
+    <textarea></textarea>
     <label>公告內文</label>
     <textarea id="annContent"></textarea>
-    <script>CKEDITOR.replace('annContent');</script>
-    <label>日期</label>
-    <input type="date" id="annDate" />
-    <button onclick="addAnnouncement()">新增公告</button>
-    <table>
-      <thead><tr><th>標題</th><th>內容</th><th>日期</th><th>操作</th></tr></thead>
-      <tbody id="annBody"></tbody>
-    </table>
   </div>
 
-  <button class="logout-btn" onclick="logout()">帳號登出</button>
+  <button onclick="saveSettings()">💾 儲存所有設定</button>
+  <button>🗑️ 清除公告內容</button>
+  <button class="logout">🚪 登出</button>
 
+  <script src="https://cdn.jsdelivr.net/npm/suneditor/dist/suneditor.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/suneditor/src/lang/ko.js"></script>
   <script>
-    const { createClient } = supabase;
-    const supabaseClient = createClient(
-      'https://zkwxsbgfebrjzvaxxkez.supabase.co',
-      'public-anon-key'
-    );
+    const editor1 = SUNEDITOR.create('marqueeTitle', {
+      height: 160,
+      buttonList: [['bold', 'underline', 'italic', 'fontColor', 'align', 'list', 'link']],
+    });
+    const editor2 = SUNEDITOR.create('annContent', {
+      height: 300,
+      buttonList: [['bold', 'underline', 'italic', 'fontColor', 'align', 'list', 'link', 'image']],
+    });
 
-    
-function addMarqueeItem() {
-  const index = document.querySelectorAll('.marquee-item').length + 1;
-  const div = document.createElement('div');
-  div.className = 'marquee-item';
-  div.innerHTML = `
-    <label class="marquee-label">${index}. 標題:</label>
-    <input class='marquee-title'>
-    <label>連結:</label>
-    <input class='marquee-link'>
-    <button onclick="this.parentNode.remove(); reorderMarqueeItems()">刪除</button>
-  `;
-  document.getElementById('marqueeList').appendChild(div);
-}
-
-function reorderMarqueeItems() {
-  const items = document.querySelectorAll('.marquee-item');
-  items.forEach((item, i) => {
-    const label = item.querySelector('.marquee-label');
-    if (label) label.textContent = \`\${i + 1}. 標題:\`;
-  });
-}
-
-      const index = document.querySelectorAll('.marquee-item').length + 1;
-      const div = document.createElement('div');
-      div.className = 'marquee-item';
-      div.innerHTML = \`<label>\${index}. 標題:</label><input id='title\${index}'><label>連結:</label><input id='link\${index}'>\`;
-      document.getElementById('marqueeList').appendChild(div);
+    function addMarqueeItem() {
+      const section = document.getElementById("marqueeSection");
+      const count = section.querySelectorAll(".marquee-item").length + 1;
+      const div = document.createElement("div");
+      div.className = "marquee-item";
+      div.innerHTML = `
+        <button onclick="deleteMarqueeItem(this)">🗑️ 刪除</button>
+        <label>${count}. 標題</label>
+        <input type="text">
+        <label>連結</label>
+        <input type="text">
+      `;
+      section.insertBefore(div, section.querySelector("button"));
+      reorderMarqueeItems();
     }
+
+    function deleteMarqueeItem(btn) {
+      const item = btn.closest(".marquee-item");
+      if (item) item.remove();
+      reorderMarqueeItems();
+    }
+
+    function reorderMarqueeItems() {
+      const items = document.querySelectorAll(".marquee-item");
+      items.forEach((item, i) => {
+        const label = item.querySelector("label");
+        if (label) label.textContent = `${i + 1}. 標題`;
+      });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const supabaseUrl = 'https://zkwxsbgfebrjzvaxxkez.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inprd3hzYmdmZWJyanp2YXh4a2V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ1NDQ3MjksImV4cCI6MjA2MDEyMDcyOX0.UG6ZzJGPTW11rC9Pjw1TbHDyxqFj_yw6242_Ft6rEGI'; // 請改為你正式 anon key
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     async function saveSettings() {
-      const logo = document.getElementById('logoInput').value;
-      const marquee = CKEDITOR.instances.marqueeInput.getData();
-      const download = document.getElementById('downloadInput').value;
-      const recharge = document.getElementById('rechargeInput').value;
-      const donate = document.getElementById('donateInput').value;
-      const fb = document.getElementById('fbInput').value;
-      const group = document.getElementById('groupInput').value;
-      const contact = document.getElementById('contactInput').value;
-      const video = document.getElementById('videoInput').value;
-      const server = document.getElementById('serverInput').value;
+      const data = {
+        logo: document.querySelectorAll("input")[0].value,
+        download: document.querySelectorAll("input")[1].value,
+        donate: document.querySelectorAll("input")[3].value,
+        fb: document.querySelectorAll("input")[4].value,
+        marquee_title: window.editor1.getContents(),
+        ann_content: window.editor2.getContents(),
+        updated_at: new Date().toISOString()
+      };
 
-      let combined = marquee;
-      const items = document.querySelectorAll('.marquee-item');
-      items.forEach((item, i) => {
-        const title = item.querySelector('.marquee-title')?.value || '';
-        const link = item.querySelector('.marquee-link')?.value || '';
-        if (title && link) {
-          combined += \` <a href='\${link}' target='_blank'><span style='color:yellow;'>\${title}</span></a>\`;
-        }
-      });
-
-      const { error } = await supabaseClient.from('settings').update({
-        logo, marquee: combined, download, recharge, donate, fb, group, contact, video, server
-      }).eq('id', 1);
-
-      alert(error ? '儲存失敗' : '儲存成功');
+      const { error } = await supabase.from("settings").upsert(data, { onConflict: ['id'] });
+      if (error) {
+        alert("❌ 儲存失敗：" + error.message);
+      } else {
+        alert("✅ 儲存成功！");
+      }
     }
 
-    async function addAnnouncement() {
-      const title = document.getElementById('annTitle').value;
-      const editor = document.getElementById('annEditor').value;
-      const type = document.getElementById('annType').value;
-      const cover = document.getElementById('annCover').value;
-      const content = CKEDITOR.instances.annContent.getData();
-      const date = document.getElementById('annDate').value;
-      const imageFile = document.getElementById('annImage').files[0];
-      let imageUrl = '';
-
-      if (!title || !content || !date) return alert('請完整輸入公告資訊');
-
-      if (imageFile) {
-        const { data } = await supabaseClient.storage.from('announcement-images')
-          .upload(`ann-${Date.now()}.jpg`, imageFile, {
-            cacheControl: '3600', upsert: false
-          });
-        if (data) imageUrl = \`https://zkwxsbgfebrjzvaxxkez.supabase.co/storage/v1/object/public/announcement-images/\${data.path}\`;
+    async function loadSettings() {
+      const { data, error } = await supabase.from("settings").select("*").single();
+      if (error) {
+        console.warn("讀取失敗", error.message);
+        return;
       }
 
-      await supabaseClient.from('announcement').insert([{ title, editor, type, cover, content, date, image: imageUrl }]);
-      loadAnnouncements();
+      if (data) {
+        document.querySelectorAll("input")[0].value = data.logo || '';
+        document.querySelectorAll("input")[1].value = data.download || '';
+        document.querySelectorAll("input")[3].value = data.donate || '';
+        document.querySelectorAll("input")[4].value = data.fb || '';
+        window.editor1.setContents(data.marquee_title || '');
+        window.editor2.setContents(data.ann_content || '');
+      }
     }
 
-    async function loadAnnouncements() {
-      const { data } = await supabaseClient.from('announcement').select('*').order('date', { ascending: false });
-      const tbody = document.getElementById('annBody');
-      tbody.innerHTML = '';
-      data.forEach((item) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = \`
-          <td><input value="\${item.title}" onchange="updateField(\${item.id}, 'title', this.value)"></td>
-          <td><textarea onchange="updateField(\${item.id}, 'content', this.value)">\${item.content}</textarea></td>
-          <td><input type="date" value="\${item.date}" onchange="updateField(\${item.id}, 'date', this.value)"></td>
-          <td><button onclick="deleteAnnouncement(\${item.id})">刪除</button></td>
-        \`;
-        tbody.appendChild(tr);
+    window.onload = async function () {
+      window.editor1 = SUNEDITOR.create('marqueeTitle', {
+        height: 160,
+        buttonList: [['bold', 'underline', 'italic', 'fontColor', 'align', 'list', 'link']],
       });
-    }
+      window.editor2 = SUNEDITOR.create('annContent', {
+        height: 300,
+        buttonList: [['bold', 'underline', 'italic', 'fontColor', 'align', 'list', 'link', 'image']],
+      });
 
-    async function updateField(id, key, value) {
-      await supabaseClient.from('announcement').update({ [key]: value }).eq('id', id);
-    }
-
-    async function deleteAnnouncement(id) {
-      if (!confirm('確定要刪除這則公告嗎？')) return;
-      await supabaseClient.from('announcement').delete().eq('id', id);
-      loadAnnouncements();
-    }
-
-    function logout() {
-      alert('已登出');
-      location.href = '/';
-    }
-
-    loadAnnouncements();
-    
-window.addEventListener("DOMContentLoaded", () => {
-  addMarqueeItem();
-});
-
+      await loadSettings();
+    };
   </script>
 </body>
+
 </html>
