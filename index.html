@@ -147,6 +147,16 @@ body {
 <div class="carousel" id="carousel"></div>
 </div>
 <section style="max-width: 700px; margin: 40px auto; background-color: #000; border: 2px solid gold; border-radius: 10px; padding: 20px; box-shadow: 0 0 10px gold;">
+
+<div style="text-align:center; margin-bottom: 16px;">
+<label for="typeFilter" style="color: gold; font-weight: bold;">📂 類別：</label>
+<select id="typeFilter" style="padding: 6px 12px; font-size: 14px; border-radius: 6px; background: #222; color: white; border: 1px solid gold;">
+<option value="全部">全部</option>
+<option value="重要">重要</option>
+<option value="系統">系統</option>
+<option value="活動">活動</option>
+</select>
+</div>
 <h2 style="color: gold; font-weight: bold; text-align: center; font-size: 20px; margin-bottom: 20px;">最新公告</h2>
 <div id="announcementList" style="display: flex; flex-direction: column; gap: 10px;"></div>
 </section>
@@ -217,5 +227,20 @@ async function load() {
   });
 }
 load();
+
+
+document.getElementById("typeFilter").addEventListener("change", (e) => {
+  const selected = e.target.value;
+  const cards = document.querySelectorAll("#announcementList > div");
+  cards.forEach(card => {
+    const labelSpan = card.querySelector(".type-badge");
+    const label = labelSpan?.textContent?.trim() || "";
+    if (selected === "全部" || label === selected) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+});
 </script></body>
 </html>
